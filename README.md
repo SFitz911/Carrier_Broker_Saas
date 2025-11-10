@@ -83,11 +83,15 @@ This is a **student-led, production-grade SaaS project** developed by the Nextwo
 
 ## 🚀 Getting Started
 
+> **🎉 NO API KEYS REQUIRED!** This is a student-friendly project.  
+> Clone and run immediately - no credentials, accounts, or setup needed!  
+> See [NO_API_KEYS_REQUIRED.md](./docs/NO_API_KEYS_REQUIRED.md) for details.
+
 ### Prerequisites
 
 - Node.js (v18+)
 - Python (v3.10+)
-- Docker & Docker Compose
+- Docker & Docker Compose (optional)
 - Git
 
 ### Installation
@@ -98,13 +102,15 @@ This is a **student-led, production-grade SaaS project** developed by the Nextwo
    cd Carrier_Broker_Saas
    ```
 
-2. **Set up credentials** ⚠️ **IMPORTANT**
+2. **Set up credentials** (OPTIONAL - Not needed for development!)
    ```bash
-   # Copy the credentials template
-   cp credentials.example.json credentials.json
+   # Optional: Only if you want to use real APIs
+   # The project works WITHOUT this file - uses mock data instead
    
-   # Edit credentials.json with your actual API keys and passwords
-   # See docs/CREDENTIALS_SETUP.md for detailed instructions
+   cp credentials.example.json credentials.json
+   # Edit credentials.json only if you have real API keys
+   
+   # Students can skip this entirely! The app works without it.
    ```
 
 3. **Set up Python virtual environment**
@@ -273,11 +279,12 @@ Contact us on the Nextwork.org Discord or open an issue expressing interest!
 
 ## 📚 Documentation
 
+- **[🎉 No API Keys Required!](./docs/NO_API_KEYS_REQUIRED.md)** - Students can start immediately!
+- **[Getting Started](./docs/GETTING_STARTED.md)** - Quick start guide for new developers
 - **[Project Outline](./PROJECT_OUTLINE.md)** - Detailed 8-10 week implementation plan
 - **[Logic Tree](./LOGIC_TREE.md)** - System architecture and decision flows
 - **[Audit Report](./AUDIT_REPORT.md)** - Project assessment and recommendations
-- **[Getting Started](./docs/GETTING_STARTED.md)** - Quick start guide for new developers
-- **[Credentials Setup](./docs/CREDENTIALS_SETUP.md)** - ⚠️ **How to configure API keys and secrets**
+- **[Credentials Setup](./docs/CREDENTIALS_SETUP.md)** - OPTIONAL: For production deployment only
 - **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute to the project
 - **[Code of Conduct](./CODE_OF_CONDUCT.md)** - Community guidelines
 

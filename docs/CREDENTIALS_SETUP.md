@@ -1,13 +1,29 @@
 # Credentials Setup Guide
 
-This project uses a **centralized credentials system** for managing all API keys, passwords, and sensitive information.
+> **⚠️ OPTIONAL FOR STUDENTS!**  
+> This guide is for production deployment only.  
+> **Students do NOT need API keys to develop on this project!**  
+> See [NO_API_KEYS_REQUIRED.md](./NO_API_KEYS_REQUIRED.md) instead.
 
-## 🔐 Why Centralized Credentials?
+---
+
+This project uses a **centralized credentials system** for managing production API keys and sensitive information.
+
+## 🎓 For Students
+
+**You can skip this entire document!** 
+
+The project works WITHOUT credentials using mock services. Only read this if you're:
+- Deploying to production
+- Want to test with real APIs (optional)
+- Setting up a production environment
+
+## 🔐 Why Centralized Credentials? (Production Only)
 
 - ✅ **Single Source of Truth** - Update credentials in one place
 - ✅ **Security** - Keep sensitive data out of code
 - ✅ **Easy Management** - No hunting through multiple files
-- ✅ **Team Friendly** - Everyone uses the same structure
+- ✅ **Optional for Development** - Students don't need it
 
 ## 📁 Setup Instructions
 
