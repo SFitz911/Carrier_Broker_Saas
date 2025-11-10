@@ -306,7 +306,7 @@ In the logistics world, relationships define success. Brokers manage loads and c
 #### 5.2 Showcase Activities
 - [ ] Present at Nextwork.org community
 - [ ] Publish demo video and walkthrough
-- [ ] Share on trucking forums and LinkedIn
+- [ ] Share on trucking forums and communities
 - [ ] Write technical blog posts
 - [ ] Submit to student project showcases
 - [ ] Product Hunt launch (optional)
@@ -316,7 +316,7 @@ In the logistics world, relationships define success. Brokers manage loads and c
 - [ ] Create case study write-ups
 - [ ] Generate personal portfolio pieces
 - [ ] Collect testimonials and project metrics
-- [ ] Update LinkedIn profiles
+- [ ] Update professional portfolios
 
 #### 5.4 Retrospective & Lessons Learned
 - [ ] Full team retrospective meeting
