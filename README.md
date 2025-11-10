@@ -94,11 +94,20 @@ This is a **student-led, production-grade SaaS project** developed by the Nextwo
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Nextwork-org/Carrier_Board.git
-   cd Carrier_Board
+   git clone https://github.com/SFitz911/Carrier_Broker_Saas.git
+   cd Carrier_Broker_Saas
    ```
 
-2. **Set up Python virtual environment**
+2. **Set up credentials** ⚠️ **IMPORTANT**
+   ```bash
+   # Copy the credentials template
+   cp credentials.example.json credentials.json
+   
+   # Edit credentials.json with your actual API keys and passwords
+   # See docs/CREDENTIALS_SETUP.md for detailed instructions
+   ```
+
+3. **Set up Python virtual environment**
    ```bash
    python -m venv .venv
    
@@ -109,24 +118,15 @@ This is a **student-led, production-grade SaaS project** developed by the Nextwo
    source .venv/bin/activate
    ```
 
-3. **Install backend dependencies**
+4. **Install backend dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Install frontend dependencies**
+5. **Install frontend dependencies**
    ```bash
    cd frontend
    npm install
-   ```
-
-5. **Set up environment variables**
-   ```bash
-   # Copy example env files
-   cp .env.example .env
-   cp frontend/.env.example frontend/.env.local
-   
-   # Edit with your configuration
    ```
 
 6. **Run with Docker Compose** (Recommended)
@@ -276,10 +276,10 @@ Contact us on the Nextwork.org Discord or open an issue expressing interest!
 - **[Project Outline](./PROJECT_OUTLINE.md)** - Detailed 8-10 week implementation plan
 - **[Logic Tree](./LOGIC_TREE.md)** - System architecture and decision flows
 - **[Audit Report](./AUDIT_REPORT.md)** - Project assessment and recommendations
+- **[Getting Started](./docs/GETTING_STARTED.md)** - Quick start guide for new developers
+- **[Credentials Setup](./docs/CREDENTIALS_SETUP.md)** - ⚠️ **How to configure API keys and secrets**
 - **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute to the project
 - **[Code of Conduct](./CODE_OF_CONDUCT.md)** - Community guidelines
-- **[API Documentation](./docs/API.md)** - Backend API reference (Coming soon)
-- **[Deployment Guide](./docs/DEPLOYMENT.md)** - How to deploy (Coming soon)
 
 ---
 

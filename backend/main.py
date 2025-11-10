@@ -6,6 +6,7 @@ FastAPI Backend Application
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.routes import health
+from src.utils.config import config
 
 # Create FastAPI application
 app = FastAPI(
@@ -16,11 +17,8 @@ app = FastAPI(
     redoc_url="/api/redoc"
 )
 
-# CORS Configuration
-origins = [
-    "http://localhost:3000",  # Frontend development server
-    "http://127.0.0.1:3000",
-]
+# CORS Configuration - Load from centralized config
+origins = config.get_cors_origins()
 
 app.add_middleware(
     CORSMiddleware,
@@ -44,5 +42,14 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+    
+    # Load port from config
+    port = config.get("backend.port", 8000)
+    debug = config.is_debug()
+    
+    print(f"Starting Carrier Board API on port {port}")
+    print(f"Debug mode: {debug}")
+    print(f"CORS origins: {origins}")
+    
+    uvicorn.run("main:app", host="0.0.0.0", port=port, reload=debug)
 

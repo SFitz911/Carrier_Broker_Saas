@@ -60,6 +60,11 @@ htmlcov/
 .env.production.local
 .env*.local
 
+# Credentials - NEVER commit this file!
+credentials.json
+.credentials.json
+*/credentials.json
+
 # IDE
 .vscode/
 .idea/
