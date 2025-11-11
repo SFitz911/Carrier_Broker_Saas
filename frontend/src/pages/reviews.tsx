@@ -242,7 +242,7 @@ export default function ReviewsPage() {
                   <select
                     value={selectedCompany}
                     onChange={(e) => setSelectedCompany(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
                   >
                     <option value="">All Companies</option>
                     {companies.map(company => (
@@ -259,7 +259,7 @@ export default function ReviewsPage() {
                   <select
                     value={minRating}
                     onChange={(e) => setMinRating(Number(e.target.value))}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
                   >
                     <option value="0">Any Rating</option>
                     <option value="1">1+ Stars</option>
@@ -276,7 +276,7 @@ export default function ReviewsPage() {
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
                   >
                     <option value="recent">Most Recent</option>
                     <option value="helpful">Most Helpful</option>
@@ -320,20 +320,20 @@ export default function ReviewsPage() {
                     <div className="space-y-3">
                       {worstBrokers.map((company, idx) => (
                         <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-lg p-4 hover:shadow-md transition cursor-pointer">
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="font-bold text-red-700">#{idx + 1}</span>
-                              <div className="flex items-center space-x-2">
-                                <span className="text-2xl font-bold text-red-600">
-                                  {company.overall_rating.toFixed(1)}
-                                </span>
-                                <StarDisplay rating={company.overall_rating} />
-                              </div>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-bold text-red-700">#{idx + 1}</span>
+                            <div className="flex items-center space-x-2">
+                              <span className="text-2xl font-bold text-red-600">
+                                {company.overall_rating.toFixed(1)}
+                              </span>
+                              <StarDisplay rating={company.overall_rating} />
                             </div>
-                            <p className="font-semibold mb-1">{company.legal_name}</p>
-                            <p className="text-sm text-gray-600">{company.review_count} reviews</p>
-                            {company.mc_number && (
-                              <p className="text-xs text-gray-500 mt-1">MC# {company.mc_number}</p>
-                            )}
+                          </div>
+                          <p className="font-semibold mb-1">{company.legal_name}</p>
+                          <p className="text-sm text-gray-600">{company.review_count} reviews</p>
+                          {company.mc_number && (
+                            <p className="text-xs text-gray-500 mt-1">MC# {company.mc_number}</p>
+                          )}
                         </Link>
                       ))}
                     </div>
@@ -352,20 +352,20 @@ export default function ReviewsPage() {
                     <div className="space-y-3">
                       {bestBrokers.map((company, idx) => (
                         <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-lg p-4 hover:shadow-md transition cursor-pointer">
-                            <div className="flex items-center justify-between mb-2">
-                              <span className="font-bold text-green-700">#{idx + 1}</span>
-                              <div className="flex items-center space-x-2">
-                                <span className="text-2xl font-bold text-green-600">
-                                  {company.overall_rating.toFixed(1)}
-                                </span>
-                                <StarDisplay rating={company.overall_rating} />
-                              </div>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-bold text-green-700">#{idx + 1}</span>
+                            <div className="flex items-center space-x-2">
+                              <span className="text-2xl font-bold text-green-600">
+                                {company.overall_rating.toFixed(1)}
+                              </span>
+                              <StarDisplay rating={company.overall_rating} />
                             </div>
-                            <p className="font-semibold mb-1">{company.legal_name}</p>
-                            <p className="text-sm text-gray-600">{company.review_count} reviews</p>
-                            {company.mc_number && (
-                              <p className="text-xs text-gray-500 mt-1">MC# {company.mc_number}</p>
-                            )}
+                          </div>
+                          <p className="font-semibold mb-1">{company.legal_name}</p>
+                          <p className="text-sm text-gray-600">{company.review_count} reviews</p>
+                          {company.mc_number && (
+                            <p className="text-xs text-gray-500 mt-1">MC# {company.mc_number}</p>
+                          )}
                         </Link>
                       ))}
                     </div>

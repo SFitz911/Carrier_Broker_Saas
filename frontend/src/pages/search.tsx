@@ -134,7 +134,7 @@ export default function SearchPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search brokers... (e.g., Swift, MC# 12345, DOT# 123456)"
-                className="flex-1 px-6 py-4 rounded-xl text-lg focus:outline-none focus:ring-4 focus:ring-cyan-300"
+                className="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-cyan-300"
               />
               <button className="bg-white text-cyan-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition">
                 Search
@@ -150,7 +150,7 @@ export default function SearchPage() {
                 <select
                   value={entityFilter}
                   onChange={(e) => setEntityFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-cyan-500"
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
                 >
                   <option value="">All Types</option>
                   <option value="BROKER">Brokers</option>
@@ -164,7 +164,7 @@ export default function SearchPage() {
                 <select
                   value={ratingFilter}
                   onChange={(e) => setRatingFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-cyan-500"
+                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
                 >
                   <option value="all">All Ratings</option>
                   <option value="high">High (4+ stars)</option>
@@ -200,87 +200,86 @@ export default function SearchPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredCompanies.map((company) => (
                 <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105 cursor-pointer h-full">
+                  {/* Rating Badge */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`px-3 py-1 rounded-full text-xs font-bold ${
+                      company.entity_type === 'BROKER' ? 'bg-blue-100 text-blue-800' :
+                      company.entity_type === 'SHIPPER' ? 'bg-purple-100 text-purple-800' :
+                      'bg-gray-100 text-gray-800'
+                    }`}>
+                      {company.entity_type}
+                    </div>
                     
-                    {/* Rating Badge */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className={`px-3 py-1 rounded-full text-xs font-bold ${
-                        company.entity_type === 'BROKER' ? 'bg-blue-100 text-blue-800' :
-                        company.entity_type === 'SHIPPER' ? 'bg-purple-100 text-purple-800' :
-                        'bg-gray-100 text-gray-800'
+                    <div className="text-center">
+                      <div className={`text-3xl font-bold mb-1 ${
+                        company.overall_rating >= 4 ? 'text-green-600' :
+                        company.overall_rating >= 2.5 ? 'text-yellow-600' :
+                        'text-red-600'
                       }`}>
-                        {company.entity_type}
+                        {company.overall_rating.toFixed(1)}
                       </div>
+                      <StarDisplay rating={company.overall_rating} />
+                    </div>
+                  </div>
+
+                  {/* Company Info */}
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">
+                    {company.legal_name}
+                  </h3>
+                  {company.dba_name && (
+                    <p className="text-sm text-gray-600 mb-2">DBA: {company.dba_name}</p>
+                  )}
+
+                  <div className="text-sm text-gray-600 space-y-1 mb-4">
+                    {company.mc_number && (
+                      <p>MC# {company.mc_number}</p>
+                    )}
+                    {company.dot_number && (
+                      <p>DOT# {company.dot_number}</p>
+                    )}
+                    {(company.physical_city || company.physical_state) && (
+                      <p>📍 {company.physical_city}, {company.physical_state}</p>
+                    )}
+                    {company.phone && (
+                      <p>📞 {company.phone}</p>
+                    )}
+                  </div>
+
+                  {/* Rating Breakdown */}
+                  {company.review_count > 0 && (
+                    <div className="border-t pt-4">
+                      <p className="text-sm text-gray-600 mb-3">
+                        {company.review_count} review{company.review_count !== 1 ? 's' : ''}
+                      </p>
                       
-                      <div className="text-center">
-                        <div className={`text-3xl font-bold mb-1 ${
-                          company.overall_rating >= 4 ? 'text-green-600' :
-                          company.overall_rating >= 2.5 ? 'text-yellow-600' :
-                          'text-red-600'
-                        }`}>
-                          {company.overall_rating.toFixed(1)}
+                      {(company.payment_rating || company.communication_rating) && (
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          {company.payment_rating && (
+                            <div className="bg-blue-50 px-2 py-1 rounded">
+                              <span className="text-gray-600">Payment: </span>
+                              <span className="font-bold text-blue-700">{company.payment_rating.toFixed(1)}</span>
+                            </div>
+                          )}
+                          {company.communication_rating && (
+                            <div className="bg-purple-50 px-2 py-1 rounded">
+                              <span className="text-gray-600">Comm: </span>
+                              <span className="font-bold text-purple-700">{company.communication_rating.toFixed(1)}</span>
+                            </div>
+                          )}
                         </div>
-                        <StarDisplay rating={company.overall_rating} />
-                      </div>
-                    </div>
-
-                    {/* Company Info */}
-                    <h3 className="text-xl font-bold mb-2 text-gray-900">
-                      {company.legal_name}
-                    </h3>
-                    {company.dba_name && (
-                      <p className="text-sm text-gray-600 mb-2">DBA: {company.dba_name}</p>
-                    )}
-
-                    <div className="text-sm text-gray-600 space-y-1 mb-4">
-                      {company.mc_number && (
-                        <p>MC# {company.mc_number}</p>
-                      )}
-                      {company.dot_number && (
-                        <p>DOT# {company.dot_number}</p>
-                      )}
-                      {(company.physical_city || company.physical_state) && (
-                        <p>📍 {company.physical_city}, {company.physical_state}</p>
-                      )}
-                      {company.phone && (
-                        <p>📞 {company.phone}</p>
                       )}
                     </div>
+                  )}
 
-                    {/* Rating Breakdown */}
-                    {company.review_count > 0 && (
-                      <div className="border-t pt-4">
-                        <p className="text-sm text-gray-600 mb-3">
-                          {company.review_count} review{company.review_count !== 1 ? 's' : ''}
-                        </p>
-                        
-                        {(company.payment_rating || company.communication_rating) && (
-                          <div className="grid grid-cols-2 gap-2 text-xs">
-                            {company.payment_rating && (
-                              <div className="bg-blue-50 px-2 py-1 rounded">
-                                <span className="text-gray-600">Payment: </span>
-                                <span className="font-bold text-blue-700">{company.payment_rating.toFixed(1)}</span>
-                              </div>
-                            )}
-                            {company.communication_rating && (
-                              <div className="bg-purple-50 px-2 py-1 rounded">
-                                <span className="text-gray-600">Comm: </span>
-                                <span className="font-bold text-purple-700">{company.communication_rating.toFixed(1)}</span>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {/* View Button */}
-                    <div className="mt-4 pt-4 border-t">
-                      <div className="text-cyan-600 hover:text-cyan-700 font-semibold text-sm flex items-center justify-between">
-                        <span>View Full Profile</span>
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </div>
+                  {/* View Button */}
+                  <div className="mt-4 pt-4 border-t">
+                    <div className="text-cyan-600 hover:text-cyan-700 font-semibold text-sm flex items-center justify-between">
+                      <span>View Full Profile</span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
                     </div>
+                  </div>
                 </Link>
               ))}
             </div>
