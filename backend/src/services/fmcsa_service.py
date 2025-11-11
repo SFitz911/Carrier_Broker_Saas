@@ -44,24 +44,43 @@ class FMCSAService:
             return {
                 "mc_number": mc_number,
                 "company_name": f"Test Company {mc_number}",
-                "status": "active",
+                "status": "Authorized for Property",
+                "safety_rating": "Satisfactory",
                 "verified": True,
                 "mock": True,  # Flag to indicate this is mock data
                 "message": "This is mock data - no API key required for development"
             }
         
-        # REAL API MODE - Only if API key is configured
+        # REAL API MODE - Using FMCSA's official endpoint
+        # Format: https://mobile.fmcsa.dot.gov/qc/services/carriers/DOT_NUMBER?webKey=YOUR_API_KEY
+        # Note: MC numbers can be queried using the same endpoint
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.get(
                     f"{self.api_url}/{mc_number}",
-                    headers={
-                        "Authorization": f"Bearer {self.api_key}"
-                    }
+                    params={"webKey": self.api_key}
                 )
                 
                 if response.status_code == 200:
-                    return response.json()
+                    data = response.json()
+                    
+                    # Parse FMCSA response structure
+                    if "content" in data and "carrier" in data["content"]:
+                        carrier = data["content"]["carrier"]
+                        return {
+                            "mc_number": carrier.get("mcNumber") or mc_number,
+                            "dot_number": carrier.get("dotNumber"),
+                            "company_name": carrier.get("legalName"),
+                            "status": carrier.get("status"),
+                            "safety_rating": carrier.get("safetyRating"),
+                            "verified": True,
+                            "mock": False
+                        }
+                    else:
+                        return None
+                elif response.status_code == 404:
+                    print(f"MC number {mc_number} not found in FMCSA database")
+                    return None
                 else:
                     print(f"FMCSA API error: {response.status_code}")
                     return None
@@ -88,24 +107,41 @@ class FMCSAService:
             return {
                 "dot_number": dot_number,
                 "company_name": f"Test Carrier {dot_number}",
-                "status": "active",
+                "status": "Authorized for Property",
+                "safety_rating": "Satisfactory",
                 "verified": True,
                 "mock": True,  # Flag to indicate this is mock data
                 "message": "This is mock data - no API key required for development"
             }
         
-        # REAL API MODE - Only if API key is configured
+        # REAL API MODE - Using FMCSA's official endpoint
+        # Format: https://mobile.fmcsa.dot.gov/qc/services/carriers/DOT_NUMBER?webKey=YOUR_API_KEY
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.get(
-                    f"{self.api_url}/dot/{dot_number}",
-                    headers={
-                        "Authorization": f"Bearer {self.api_key}"
-                    }
+                    f"{self.api_url}/{dot_number}",
+                    params={"webKey": self.api_key}
                 )
                 
                 if response.status_code == 200:
-                    return response.json()
+                    data = response.json()
+                    
+                    # Parse FMCSA response structure
+                    if "content" in data and "carrier" in data["content"]:
+                        carrier = data["content"]["carrier"]
+                        return {
+                            "dot_number": carrier.get("dotNumber"),
+                            "company_name": carrier.get("legalName"),
+                            "status": carrier.get("status"),
+                            "safety_rating": carrier.get("safetyRating"),
+                            "verified": True,
+                            "mock": False
+                        }
+                    else:
+                        return None
+                elif response.status_code == 404:
+                    print(f"DOT number {dot_number} not found in FMCSA database")
+                    return None
                 else:
                     print(f"FMCSA API error: {response.status_code}")
                     return None

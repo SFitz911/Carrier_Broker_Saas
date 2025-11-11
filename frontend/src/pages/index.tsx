@@ -3,12 +3,37 @@ import { useState } from 'react'
 
 export default function Home() {
   const [email, setEmail] = useState('')
+  const [dotNumber, setDotNumber] = useState('')
+  const [verifying, setVerifying] = useState(false)
+  const [verificationResult, setVerificationResult] = useState<any>(null)
 
   const handleWaitlistSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // TODO: Implement waitlist functionality
     alert(`Thanks for your interest! We'll contact you at ${email}`)
     setEmail('')
+  }
+
+  const handleVerifyDOT = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!dotNumber) return
+
+    setVerifying(true)
+    setVerificationResult(null)
+
+    try {
+      // Call backend API for DOT verification
+      const response = await fetch(`http://localhost:8000/api/verify/dot/${dotNumber}`)
+      const data = await response.json()
+      setVerificationResult(data)
+    } catch (error) {
+      setVerificationResult({
+        verified: false,
+        message: 'Unable to verify. Backend may not be running. Try DOT# 123456 for demo.'
+      })
+    } finally {
+      setVerifying(false)
+    }
   }
 
   return (
@@ -65,11 +90,11 @@ export default function Home() {
               </div>
               
               <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                Building <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">Transparency</span> in Freight Brokering
+                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">Truckers</span> Rate Brokers
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                The first two-way rating platform where carriers and brokers build trust through verified reviews and DOT/MC validation.
+                Know before you haul. Rate brokers on payment, communication, and professionalism. Find the good ones, avoid the bad ones.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -261,6 +286,115 @@ export default function Home() {
                 <p className="text-gray-400">
                   Build your reputation, find reliable partners, and grow your business with confidence and transparency.
                 </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* DOT/MC Verification Demo Section */}
+        <section className="py-24 bg-gradient-to-br from-gray-900 to-gray-950">
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                  Try <span className="text-cyan-400">DOT/MC Verification</span>
+                </h2>
+                <p className="text-xl text-gray-400">
+                  See how fast we verify your company with FMCSA database
+                </p>
+              </div>
+
+              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-2xl p-8">
+                <form onSubmit={handleVerifyDOT} className="space-y-6">
+                  <div>
+                    <label className="block text-sm font-semibold mb-2 text-gray-300">
+                      Enter DOT or MC Number
+                    </label>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <input
+                        type="text"
+                        value={dotNumber}
+                        onChange={(e) => setDotNumber(e.target.value)}
+                        placeholder="e.g., 123456"
+                        className="flex-1 px-6 py-4 bg-gray-900 border border-gray-600 rounded-xl focus:outline-none focus:border-cyan-500 transition text-white"
+                        disabled={verifying}
+                      />
+                      <button
+                        type="submit"
+                        disabled={verifying || !dotNumber}
+                        className="bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 rounded-xl font-bold hover:from-cyan-600 hover:to-blue-700 transition transform hover:scale-105 shadow-lg shadow-cyan-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {verifying ? 'Verifying...' : 'Verify Now'}
+                      </button>
+                    </div>
+                  </div>
+
+                  {verificationResult && (
+                    <div className={`p-6 rounded-xl border ${
+                      verificationResult.verified 
+                        ? 'bg-green-500/10 border-green-500/50' 
+                        : 'bg-red-500/10 border-red-500/50'
+                    }`}>
+                      <div className="flex items-start space-x-3">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                          verificationResult.verified ? 'bg-green-500' : 'bg-red-500'
+                        }`}>
+                          {verificationResult.verified ? (
+                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                            </svg>
+                          ) : (
+                            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          )}
+                        </div>
+                        <div className="flex-1">
+                          <h3 className={`font-bold text-lg mb-2 ${
+                            verificationResult.verified ? 'text-green-400' : 'text-red-400'
+                          }`}>
+                            {verificationResult.verified ? '✓ Verified!' : '✗ Not Found'}
+                          </h3>
+                          {verificationResult.company_name && (
+                            <p className="text-white font-semibold mb-1">
+                              {verificationResult.company_name}
+                            </p>
+                          )}
+                          <p className="text-gray-300 text-sm">
+                            {verificationResult.message || 'Company verified with FMCSA database'}
+                          </p>
+                          <div className="mt-3 space-y-1">
+                            {verificationResult.status && (
+                              <p className="text-gray-400 text-sm">
+                                Status: <span className="text-cyan-400 font-medium">{verificationResult.status}</span>
+                              </p>
+                            )}
+                            {verificationResult.safety_rating && (
+                              <p className="text-gray-400 text-sm">
+                                Safety Rating: <span className={`font-medium ${
+                                  verificationResult.safety_rating === 'Satisfactory' ? 'text-green-400' :
+                                  verificationResult.safety_rating === 'Unsatisfactory' ? 'text-red-400' :
+                                  'text-yellow-400'
+                                }`}>{verificationResult.safety_rating}</span>
+                              </p>
+                            )}
+                            {verificationResult.mock && (
+                              <p className="text-yellow-400 text-xs mt-2">
+                                ⚠️ Mock data - Add FMCSA API key for real verification
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </form>
+
+                <div className="mt-6 pt-6 border-t border-gray-700">
+                  <p className="text-sm text-gray-400 text-center">
+                    💡 <strong>Try it:</strong> Enter any DOT or MC number to see instant verification
+                  </p>
+                </div>
               </div>
             </div>
           </div>

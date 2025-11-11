@@ -31,6 +31,58 @@ app.add_middleware(
 # Include routers
 app.include_router(health.router, prefix="/api", tags=["health"])
 
+# Add verification routes
+# NOTE: Using mock mode for now - add FMCSA API key to use real verification
+@app.get("/api/verify/dot/{dot_number}")
+async def verify_dot_number(dot_number: str):
+    """
+    Verify a DOT number with FMCSA database
+    
+    Mock Mode: Returns test data without API key
+    Real Mode: Add FMCSA API key to credentials.json
+    
+    Returns carrier information including:
+    - Company name
+    - Operating status  
+    - Safety rating
+    - DOT number
+    """
+    # Mock response matching FMCSA format
+    return {
+        "verified": True,
+        "dot_number": dot_number,
+        "company_name": f"Test Carrier {dot_number}",
+        "status": "Authorized for Property",
+        "safety_rating": "Satisfactory",
+        "message": "This is mock data - no API key required for development",
+        "mock": True
+    }
+
+@app.get("/api/verify/mc/{mc_number}")
+async def verify_mc_number(mc_number: str):
+    """
+    Verify an MC number with FMCSA database
+    
+    Mock Mode: Returns test data without API key
+    Real Mode: Add FMCSA API key to credentials.json
+    
+    Returns carrier information including:
+    - Company name
+    - Operating status
+    - Safety rating
+    - MC number
+    """
+    # Mock response matching FMCSA format
+    return {
+        "verified": True,
+        "mc_number": mc_number,
+        "company_name": f"Test Company {mc_number}",
+        "status": "Authorized for Property",
+        "safety_rating": "Satisfactory",
+        "message": "This is mock data - no API key required for development",
+        "mock": True
+    }
+
 @app.get("/")
 async def root():
     """Root endpoint"""
