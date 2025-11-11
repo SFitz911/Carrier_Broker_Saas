@@ -26,26 +26,36 @@ The **FMCSA API** (Federal Motor Carrier Safety Administration API) is a web-bas
 
 ---
 
-## 🔑 How to Get an FMCSA API Key
+## 🔑 How to Get an FMCSA WebKey (API Key)
 
-### Step 1: Register for an API Key
+### Step 1: Create a Developer Account
 
-1. Visit the FMCSA Web Services Portal:
+1. Visit the **FMCSA Mobile Developer Portal**:
    - **URL**: https://mobile.fmcsa.dot.gov/developer/home.page
 
-2. Create an account or log in
+2. **Sign in** and create a developer account
+   - Click "Register" if you don't have an account
+   - Fill out your information
 
-3. Request an API key (called "webKey")
+### Step 2: Request a WebKey
+
+1. Once logged in, **request a WebKey** (this is your API key)
+   - Navigate to the WebKey request page
    - Fill out the registration form
    - Agree to terms of service
-   - Wait for approval (usually 1-3 business days)
+   - Submit your request
 
-### Step 2: Receive Your API Key
+2. **Wait for approval** (usually 1-3 business days)
+   - You'll receive an email confirmation
 
-You'll receive an email with your `webKey` that looks like:
+### Step 3: Receive Your WebKey
+
+You'll receive your `webKey` via email. It looks like:
 ```
-YOUR_API_KEY_HERE_123456789
+YOUR_WEBKEY_HERE_123456789
 ```
+
+**Every API request must include this WebKey as a query parameter.**
 
 ---
 
@@ -79,26 +89,69 @@ export FMCSA_TIMEOUT="10"
 
 ---
 
-## 📝 API Endpoint Format
+## 📝 FMCSA QCMobile API Endpoints
 
-### Verify DOT Number
+The **QCMobile API** returns the same core "Company Snapshot" data you see on the SAFER website, but in clean JSON format—perfect for applications.
+
+### Endpoint 1: Lookup by DOT Number
 
 ```
-GET https://mobile.fmcsa.dot.gov/qc/services/carriers/{DOT_NUMBER}?webKey={YOUR_API_KEY}
+GET https://mobile.fmcsa.dot.gov/qc/services/carriers/dot/{USDOT}?webKey=YOUR_WEBKEY
 ```
 
 **Example Request:**
 ```bash
-curl "https://mobile.fmcsa.dot.gov/qc/services/carriers/1234567?webKey=YOUR_API_KEY"
+curl "https://mobile.fmcsa.dot.gov/qc/services/carriers/dot/1234567?webKey=YOUR_WEBKEY"
 ```
 
-**Example Response:**
+### Endpoint 2: Lookup by MC/Docket Number
+
+```
+GET https://mobile.fmcsa.dot.gov/qc/services/carriers/docket-number/{MC}?webKey=YOUR_WEBKEY
+```
+
+**Example Request:**
+```bash
+curl "https://mobile.fmcsa.dot.gov/qc/services/carriers/docket-number/123456?webKey=YOUR_WEBKEY"
+```
+
+### Endpoint 3: Lookup by Company Name
+
+```
+GET https://mobile.fmcsa.dot.gov/qc/services/carriers/name/{encodedName}?webKey=YOUR_WEBKEY
+```
+
+**Example Request:**
+```bash
+curl "https://mobile.fmcsa.dot.gov/qc/services/carriers/name/ACME%20TRUCKING?webKey=YOUR_WEBKEY"
+```
+
+**Note:** URL-encode the company name (spaces become `%20`)
+
+### Endpoint 4: Get Authority & Insurance Info
+
+```
+GET https://mobile.fmcsa.dot.gov/qc/services/carriers/{USDOT}/authority?webKey=YOUR_WEBKEY
+```
+
+**Example Request:**
+```bash
+curl "https://mobile.fmcsa.dot.gov/qc/services/carriers/1234567/authority?webKey=YOUR_WEBKEY"
+```
+
+**Returns:** Operating authority, insurance, and BOC-3 filing information
+
+---
+
+### Example Response (JSON)
+
 ```json
 {
   "content": {
     "carrier": {
       "dotNumber": "1234567",
       "legalName": "ACME TRUCKING INC",
+      "dbaName": "ACME FREIGHT",
       "status": "Authorized for Property",
       "safetyRating": "Satisfactory",
       "physicalAddress": {
@@ -106,11 +159,96 @@ curl "https://mobile.fmcsa.dot.gov/qc/services/carriers/1234567?webKey=YOUR_API_
         "city": "Springfield",
         "state": "IL",
         "zipCode": "62701"
-      }
+      },
+      "mailingAddress": {
+        "streetLine": "PO Box 456",
+        "city": "Springfield",
+        "state": "IL",
+        "zipCode": "62702"
+      },
+      "oosDate": null,
+      "mcs150Date": "2023-11-15",
+      "mcs150Mileage": 500000,
+      "mcs150MileageYear": 2023,
+      "totalDrivers": 12,
+      "totalPowerUnits": 8
     }
   }
 }
 ```
+
+**Fields mirror what you see on the SAFER "Company Snapshot" page.**
+
+---
+
+## 🎯 CRITICAL: Verifying BROKERS (Not Carriers)
+
+**For Carrier Board, it's essential to verify that an MC number belongs to a BROKER**, not a carrier. Truckers should only rate brokers, not other truckers.
+
+### The entityType Field
+
+The FMCSA API returns an `entityType` field that indicates what type of entity you're looking at:
+
+- **`"BROKER"`** - Freight broker
+- **`"CARRIER"`** - Trucking company/carrier  
+- **`"FREIGHT_FORWARDER"`** - Freight forwarder
+- **And others**
+
+### Broker Verification Pattern
+
+```python
+import os, requests
+
+WEBKEY = os.environ["FMCSA_WEBKEY"]
+BASE = "https://mobile.fmcsa.dot.gov/qc/services"
+
+def verify_broker(mc):
+    # Look up by MC/Docket number
+    r = requests.get(f"{BASE}/carriers/docket-number/{mc}", 
+                     params={"webKey": WEBKEY}, 
+                     timeout=20)
+    r.raise_for_status()
+    
+    carrier = r.json().get("content", {}).get("carrier")
+    
+    if not carrier:
+        return {"error": "MC not found"}
+    
+    # CHECK: Is this actually a broker?
+    if carrier.get("entityType") != "BROKER":
+        return {"error": f"MC#{mc} is not a broker (type: {carrier.get('entityType')})"}
+    
+    # It's a broker! Get additional authority data
+    dot = carrier.get("dotNumber")
+    auth = requests.get(f"{BASE}/carriers/{dot}/authority",
+                       params={"webKey": WEBKEY},
+                       timeout=20).json()
+    
+    return {
+        "is_broker": True,
+        "mc": mc,
+        "dot": dot,
+        "legalName": carrier.get("legalName"),
+        "dbaName": carrier.get("dbaName"),
+        "entityType": carrier.get("entityType"),  # "BROKER"
+        "authority": auth.get("content"),          # Insurance, BOC-3, etc.
+    }
+```
+
+### Why This Matters
+
+1. **Prevent Rating Carriers** - Truckers should rate brokers, not other truckers
+2. **Accurate Data** - Brokers have different authority types than carriers
+3. **Trust** - Ensures platform integrity
+
+### Carrier Board Implementation
+
+The platform should:
+1. ✅ Verify MC number exists
+2. ✅ Check `entityType == "BROKER"`
+3. ✅ Reject if it's a carrier or other entity
+4. ✅ Get authority/insurance data for brokers
+5. ✅ Display broker-specific information
 
 ---
 
@@ -132,21 +270,30 @@ If no API key is configured, the system automatically runs in **Mock Mode**:
 
 ## 🎯 Use Cases for Carrier Board
 
-1. **Verify Carriers Automatically**
+### 1. Verify Brokers Before Taking Loads
    - Instant DOT/MC number verification
-   - Real-time safety rating checks
+   - Check if broker is Out of Service (OOS)
+   - Verify operating authority status
 
-2. **Display Safety Ratings**
-   - Show carrier safety ratings before booking
-   - Flag carriers with poor safety records
+### 2. Display Safety Information
+   - Show broker/shipper safety ratings
+   - Flag companies with poor safety records
+   - Show crash and inspection history
 
-3. **Auto-fill Company Profiles**
-   - Pull official company name, address
-   - Display operating authority status
+### 3. Auto-fill Broker Profiles
+   - Pull official company name, DBA name
+   - Display physical address and phone
+   - Show fleet size and driver count
 
-4. **Compliance Checking**
+### 4. Insurance & Authority Verification
    - Verify active insurance coverage
-   - Check operating authority status
+   - Check BOC-3 filing status
+   - Confirm operating authority is current
+
+### 5. Detect Red Flags
+   - Identify recently Out of Service companies
+   - Show companies with outdated MCS-150 forms
+   - Alert on missing insurance
 
 ---
 
@@ -172,15 +319,31 @@ Once configured, the FMCSA API is used in:
 
 ## 📊 API Response Fields
 
-The FMCSA API returns rich data about carriers:
+The FMCSA QCMobile API returns comprehensive "Company Snapshot" data:
 
 | Field | Description | Example |
 |-------|-------------|---------|
 | `dotNumber` | DOT number | "1234567" |
 | `legalName` | Official company name | "ACME TRUCKING INC" |
+| `dbaName` | Doing Business As name | "ACME FREIGHT" |
 | `status` | Operating authority status | "Authorized for Property" |
-| `safetyRating` | FMCSA safety rating | "Satisfactory" |
-| `mcNumber` | MC number (if applicable) | "123456" |
+| `safetyRating` | FMCSA safety rating | "Satisfactory", "Unsatisfactory", "None" |
+| `oosDate` | Out of Service date | "2023-01-15" or `null` |
+| `mcs150Date` | MCS-150 form update date | "2023-11-15" |
+| `mcs150Mileage` | Annual mileage reported | 500000 |
+| `totalDrivers` | Number of drivers | 12 |
+| `totalPowerUnits` | Number of trucks | 8 |
+| `physicalAddress` | Physical location | Address object |
+| `mailingAddress` | Mailing address | Address object |
+
+### Additional Data Available
+
+The API also provides:
+- **Crash/Inspection counts** (updated weekly)
+- **Insurance information**
+- **BOC-3 filing details** (via L&I resources)
+- **Operating classifications**
+- **Cargo types**
 
 ---
 
@@ -225,12 +388,62 @@ The FMCSA API returns rich data about carriers:
 
 ---
 
-## 📚 Additional Resources
+## 🔄 Data Freshness & Caching
 
-- **FMCSA Developer Portal**: https://mobile.fmcsa.dot.gov/developer/
-- **SAFER System**: https://safer.fmcsa.dot.gov/
-- **API Documentation**: Available after registration
+### Update Frequency
+- **Company Snapshot data**: Updated daily
+- **Crash/Inspection counts**: Updated weekly
+- **Insurance/L&I data**: Updated as filed
+
+### Recommended Caching Strategy
+1. **Cache carrier data** for 24 hours
+2. **Refresh on demand** when users request verification
+3. **Flag stale data** if older than 7 days
+4. **Store oosDate** to identify Out of Service carriers
+
+**Design your cache/refresh logic accordingly** to balance API usage with data freshness.
+
+---
+
+## 📚 Official Resources
+
+- **FMCSA Mobile Developer Portal**: https://mobile.fmcsa.dot.gov/developer/
+  - Request WebKey here
+  - Access API documentation
+  
+- **SAFER Web (Company Snapshot)**: https://safer.fmcsa.dot.gov/
+  - View human-readable company data
+  - **Note**: Don't scrape this—use the API instead
+  
+- **Data.gov - FMCSA Datasets**: https://catalog.data.gov/organization/dot-gov
+  - Additional L&I resources
+  - BOC-3 and insurance data
+  
 - **FMCSA Query Tool**: https://safer.fmcsa.dot.gov/query.asp
+  - Manual lookup tool (for reference)
+
+---
+
+## ⚠️ Important Notes
+
+### Don't Scrape SAFER Web
+The public SAFER "Company Snapshot" pages are HTML meant for humans—**not stable for applications**. 
+
+✅ **Use the QCMobile API** instead
+❌ **Don't scrape HTML pages** (brittle and may violate terms)
+
+### WebKey in Query Parameters
+Always include your WebKey as a **query parameter**, not in headers:
+
+```
+?webKey=YOUR_WEBKEY
+```
+
+### Rate Limits
+While not officially documented, be respectful:
+- Implement caching (24-hour minimum)
+- Don't make excessive requests
+- Monitor your usage
 
 ---
 

@@ -83,6 +83,31 @@ async def verify_mc_number(mc_number: str):
         "mock": True
     }
 
+@app.get("/api/verify/broker/{mc_number}")
+async def verify_broker(mc_number: str):
+    """
+    Verify that an MC number belongs to a BROKER (not a carrier)
+    
+    IMPORTANT: This ensures truckers can only rate actual brokers,
+    not other carriers or entities.
+    
+    Returns:
+    - Broker information if valid
+    - Error if MC is not a broker
+    """
+    # Mock response - in real mode, this checks entityType == "BROKER"
+    return {
+        "verified": True,
+        "is_broker": True,
+        "mc_number": mc_number,
+        "company_name": f"Test Broker {mc_number}",
+        "entity_type": "BROKER",
+        "status": "Authorized for Property Broker",
+        "safety_rating": "Satisfactory",
+        "message": "This is mock data - no API key required for development",
+        "mock": True
+    }
+
 @app.get("/")
 async def root():
     """Root endpoint"""

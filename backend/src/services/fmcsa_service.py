@@ -51,28 +51,41 @@ class FMCSAService:
                 "message": "This is mock data - no API key required for development"
             }
         
-        # REAL API MODE - Using FMCSA's official endpoint
-        # Format: https://mobile.fmcsa.dot.gov/qc/services/carriers/DOT_NUMBER?webKey=YOUR_API_KEY
-        # Note: MC numbers can be queried using the same endpoint
+        # REAL API MODE - Using FMCSA's official QCMobile API
+        # Format: https://mobile.fmcsa.dot.gov/qc/services/carriers/docket-number/{MC}?webKey=YOUR_KEY
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.get(
-                    f"{self.api_url}/{mc_number}",
+                    f"{self.api_url}/docket-number/{mc_number}",
                     params={"webKey": self.api_key}
                 )
                 
                 if response.status_code == 200:
                     data = response.json()
                     
-                    # Parse FMCSA response structure
+                    # Parse FMCSA QCMobile API response structure
                     if "content" in data and "carrier" in data["content"]:
                         carrier = data["content"]["carrier"]
                         return {
                             "mc_number": carrier.get("mcNumber") or mc_number,
                             "dot_number": carrier.get("dotNumber"),
                             "company_name": carrier.get("legalName"),
-                            "status": carrier.get("status"),
+                            "dba_name": carrier.get("dbaName"),
+                            "status": carrier.get("operatingStatus"),
+                            "out_of_service_date": carrier.get("outOfServiceDate"),
                             "safety_rating": carrier.get("safetyRating"),
+                            "mcs150_mileage": carrier.get("mcs150Mileage"),
+                            "mcs150_year": carrier.get("mcs150MileageYear"),
+                            "total_drivers": carrier.get("totalDrivers"),
+                            "total_power_units": carrier.get("totalPowerUnits"),
+                            "phone": carrier.get("phone"),
+                            "entity_type": carrier.get("entityType"),  # BROKER, CARRIER, etc.
+                            "physical_address": {
+                                "street": carrier.get("phyStreet"),
+                                "city": carrier.get("phyCity"),
+                                "state": carrier.get("phyState"),
+                                "zip": carrier.get("phyZip")
+                            },
                             "verified": True,
                             "mock": False
                         }
@@ -114,26 +127,40 @@ class FMCSAService:
                 "message": "This is mock data - no API key required for development"
             }
         
-        # REAL API MODE - Using FMCSA's official endpoint
-        # Format: https://mobile.fmcsa.dot.gov/qc/services/carriers/DOT_NUMBER?webKey=YOUR_API_KEY
+        # REAL API MODE - Using FMCSA's official QCMobile API
+        # Format: https://mobile.fmcsa.dot.gov/qc/services/carriers/dot/{USDOT}?webKey=YOUR_KEY
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
                 response = await client.get(
-                    f"{self.api_url}/{dot_number}",
+                    f"{self.api_url}/dot/{dot_number}",
                     params={"webKey": self.api_key}
                 )
                 
                 if response.status_code == 200:
                     data = response.json()
                     
-                    # Parse FMCSA response structure
+                    # Parse FMCSA QCMobile API response structure
                     if "content" in data and "carrier" in data["content"]:
                         carrier = data["content"]["carrier"]
                         return {
                             "dot_number": carrier.get("dotNumber"),
                             "company_name": carrier.get("legalName"),
-                            "status": carrier.get("status"),
+                            "dba_name": carrier.get("dbaName"),
+                            "status": carrier.get("operatingStatus"),
+                            "out_of_service_date": carrier.get("outOfServiceDate"),
                             "safety_rating": carrier.get("safetyRating"),
+                            "mcs150_mileage": carrier.get("mcs150Mileage"),
+                            "mcs150_year": carrier.get("mcs150MileageYear"),
+                            "total_drivers": carrier.get("totalDrivers"),
+                            "total_power_units": carrier.get("totalPowerUnits"),
+                            "phone": carrier.get("phone"),
+                            "entity_type": carrier.get("entityType"),  # BROKER, CARRIER, etc.
+                            "physical_address": {
+                                "street": carrier.get("phyStreet"),
+                                "city": carrier.get("phyCity"),
+                                "state": carrier.get("phyState"),
+                                "zip": carrier.get("phyZip")
+                            },
                             "verified": True,
                             "mock": False
                         }
@@ -148,6 +175,73 @@ class FMCSAService:
                     
         except Exception as e:
             print(f"Error calling FMCSA API: {e}")
+            return None
+    
+    async def verify_broker_by_mc(self, mc_number: str) -> Optional[Dict]:
+        """
+        Verify that an MC number belongs to a BROKER (not a carrier)
+        
+        This is critical for Carrier Board - truckers should only rate BROKERS
+        
+        Args:
+            mc_number: Motor Carrier number to verify
+        
+        Returns:
+            Broker data if found and is a broker, None otherwise
+        """
+        # First get the basic carrier data
+        result = await self.verify_mc_number(mc_number)
+        
+        if not result:
+            return None
+        
+        # Check if entity type is BROKER
+        if result.get("entity_type") != "BROKER":
+            print(f"MC#{mc_number} is not a BROKER (type: {result.get('entity_type')})")
+            return None
+        
+        # Get authority/insurance data if we have real API access
+        if not self.mock_mode and result.get("dot_number"):
+            authority_data = await self.get_authority_info(result["dot_number"])
+            if authority_data:
+                result["authority"] = authority_data
+        
+        return result
+    
+    async def get_authority_info(self, dot_number: str) -> Optional[Dict]:
+        """
+        Get operating authority and insurance information
+        
+        Args:
+            dot_number: DOT number to look up
+        
+        Returns:
+            Authority and insurance data
+        """
+        if self.mock_mode:
+            return {
+                "broker_authority": "Active",
+                "insurance_required": "Yes",
+                "boc3_filed": True,
+                "mock": True
+            }
+        
+        try:
+            async with httpx.AsyncClient(timeout=self.timeout) as client:
+                response = await client.get(
+                    f"{self.api_url}/{dot_number}/authority",
+                    params={"webKey": self.api_key}
+                )
+                
+                if response.status_code == 200:
+                    data = response.json()
+                    return data.get("content", {})
+                else:
+                    print(f"Authority API error: {response.status_code}")
+                    return None
+                    
+        except Exception as e:
+            print(f"Error calling Authority API: {e}")
             return None
 
 
