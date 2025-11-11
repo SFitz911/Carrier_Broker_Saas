@@ -6,7 +6,7 @@
 
 ## 🎯 What Is This?
 
-Carrier Board gives truckers the ability to rate and review brokers and shippers—just like brokers can rate truckers. It creates a **balanced, two-way system** where accountability flows both directions.
+Carrier Board is the **only platform where truckers rate brokers and shippers**—not the other way around. It's time to level the playing field and give truckers the voice they've never had.
 
 **This is how you use I.T. to change the world.**
 
@@ -16,9 +16,9 @@ Carrier Board gives truckers the ability to rate and review brokers and shippers
 
 - 🤖 **AI-Powered Data Entry** - Upload a BOL, AI extracts the details
 - ✅ **DOT/MC Verification** - Instant FMCSA database verification
-- ⭐ **Two-Way Ratings** - Truckers rate brokers, brokers rate truckers
+- ⭐ **Trucker-Only Ratings** - Only truckers rate brokers and shippers
 - 🔒 **Secure Platform** - JWT authentication, encrypted data
-- 📊 **Fair Analytics** - Data-driven ratings based on real performance
+- 📊 **Fair Analytics** - Data-driven ratings based on real experiences
 
 ---
 
@@ -54,14 +54,15 @@ API: http://localhost:8000
 
 ## 💡 The Problem We're Solving
 
-Brokers maintain one-sided performance boards that track truckers—but truckers can't access them and have no way to report bad brokers. 
+For years, brokers have maintained one-sided performance boards that track truckers—but truckers can't access them and have no way to rate brokers. 
 
 **Carrier Board changes that.**
 
 Truckers can now:
-- ✅ Identify honest brokers who pay on time
-- ✅ Report non-payment and poor practices
+- ✅ Rate brokers and shippers on payment, communication, and honesty
+- ✅ Warn other truckers about non-payment and poor practices
 - ✅ See which brokers are trustworthy before taking a load
+- ✅ Finally have a voice in an industry that's been one-sided for too long
 
 ---
 

@@ -90,11 +90,11 @@ export default function Home() {
               </div>
               
               <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">Truckers</span> Rate Brokers
+                Finally, <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">Truckers</span> Have a Voice
               </h1>
               
               <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-                Know before you haul. Rate brokers on payment, communication, and professionalism. Find the good ones, avoid the bad ones.
+                The only platform where truckers rate brokers and shippers. Know who pays on time, who doesn't, and who to avoid—before you take the load.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -110,19 +110,19 @@ export default function Home() {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
                 <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
                   <div className="text-3xl font-bold text-cyan-400">10K+</div>
-                  <div className="text-gray-400 mt-2">Verified Carriers</div>
+                  <div className="text-gray-400 mt-2">Truckers Protected</div>
                 </div>
                 <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
                   <div className="text-3xl font-bold text-blue-400">5K+</div>
-                  <div className="text-gray-400 mt-2">Active Brokers</div>
+                  <div className="text-gray-400 mt-2">Brokers Rated</div>
                 </div>
                 <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
                   <div className="text-3xl font-bold text-purple-400">50K+</div>
-                  <div className="text-gray-400 mt-2">Reviews</div>
+                  <div className="text-gray-400 mt-2">Honest Reviews</div>
                 </div>
                 <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
-                  <div className="text-3xl font-bold text-green-400">99.9%</div>
-                  <div className="text-gray-400 mt-2">Uptime</div>
+                  <div className="text-3xl font-bold text-green-400">$2M+</div>
+                  <div className="text-gray-400 mt-2">In Reported Issues</div>
                 </div>
               </div>
             </div>
@@ -141,10 +141,10 @@ export default function Home() {
           <div className="container mx-auto px-4 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                Powerful Features for <span className="text-cyan-400">Everyone</span>
+                Built for <span className="text-cyan-400">Truckers</span>
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                Everything you need to make informed decisions and build lasting partnerships
+                Everything you need to protect yourself and make informed decisions before taking a load
               </p>
             </div>
 
@@ -158,7 +158,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold mb-3">DOT/MC Verification</h3>
                 <p className="text-gray-400">
-                  Automatic verification through FMCSA database. Only legitimate carriers and brokers can participate.
+                  Instant verification through FMCSA database. Verify your carrier credentials and look up any broker or shipper.
                 </p>
               </div>
 
@@ -169,9 +169,9 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Two-Way Ratings</h3>
+                <h3 className="text-2xl font-bold mb-3">Trucker-Only Ratings</h3>
                 <p className="text-gray-400">
-                  Both carriers and brokers can rate each other. Build your reputation and find trustworthy partners.
+                  You rate brokers and shippers—not the other way around. Finally, truckers have the power to expose bad actors.
                 </p>
               </div>
 
@@ -197,7 +197,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-bold mb-3">Analytics Dashboard</h3>
                 <p className="text-gray-400">
-                  Track your reputation score, view insights, and monitor your performance over time.
+                  Track brokers you've worked with, see payment patterns, and get alerts about companies with poor ratings.
                 </p>
               </div>
 
@@ -208,9 +208,9 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Dispute Resolution</h3>
+                <h3 className="text-2xl font-bold mb-3">Document Everything</h3>
                 <p className="text-gray-400">
-                  Fair and transparent process to handle disputes with mediation support and evidence submission.
+                  Upload BOLs, rate confirmations, and payment records. Build a paper trail to protect yourself.
                 </p>
               </div>
 
@@ -221,9 +221,9 @@ export default function Home() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-2xl font-bold mb-3">Real-Time Updates</h3>
+                <h3 className="text-2xl font-bold mb-3">Real-Time Alerts</h3>
                 <p className="text-gray-400">
-                  Get instant notifications about new reviews, responses, and important account activities.
+                  Get notified when brokers you work with receive new ratings, or when payment issues are reported.
                 </p>
               </div>
             </div>
@@ -233,12 +233,12 @@ export default function Home() {
         {/* How It Works Section */}
         <section id="how-it-works" className="py-24 bg-gray-900">
           <div className="container mx-auto px-4 lg:px-8">
-            <div className="text-center mb-16">
+              <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
                 How It <span className="text-cyan-400">Works</span>
               </h2>
               <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                Get started in minutes with our simple three-step process
+                Three simple steps to protect yourself and hold brokers accountable
               </p>
             </div>
 
@@ -265,9 +265,9 @@ export default function Home() {
                 <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg shadow-blue-500/50">
                   2
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Rate & Review</h3>
+                <h3 className="text-2xl font-bold mb-4">Rate Brokers & Shippers</h3>
                 <p className="text-gray-400">
-                  Share your experiences with carriers or brokers. Rate on communication, payment, professionalism, and more.
+                  Share your real experiences. Rate them on payment speed, communication, professionalism, and honesty.
                 </p>
                 {/* Arrow */}
                 <div className="hidden md:block absolute top-10 -right-6 text-cyan-400/30">
@@ -282,9 +282,9 @@ export default function Home() {
                 <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl font-bold shadow-lg shadow-purple-500/50">
                   3
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Build Trust</h3>
+                <h3 className="text-2xl font-bold mb-4">Make Better Decisions</h3>
                 <p className="text-gray-400">
-                  Build your reputation, find reliable partners, and grow your business with confidence and transparency.
+                  Check ratings before taking loads. Find the good brokers, avoid the bad ones, and protect your business.
                 </p>
               </div>
             </div>
@@ -404,13 +404,13 @@ export default function Home() {
         <section id="benefits" className="py-24 bg-gray-950">
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid md:grid-cols-2 gap-16 items-center">
-              {/* Left Side - For Carriers */}
+              {/* Left Side - For Truckers */}
               <div>
                 <div className="inline-block px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full mb-6">
-                  <span className="text-green-400 text-sm font-semibold">FOR CARRIERS</span>
+                  <span className="text-green-400 text-sm font-semibold">FOR TRUCKERS</span>
                 </div>
                 <h2 className="text-4xl font-bold mb-6">
-                  Get Paid Fairly, <span className="text-green-400">Work Better</span>
+                  Know Before You Haul, <span className="text-green-400">Work Smarter</span>
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
@@ -449,46 +449,46 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Right Side - For Brokers */}
+              {/* Right Side - Why This Matters */}
               <div>
-                <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full mb-6">
-                  <span className="text-blue-400 text-sm font-semibold">FOR BROKERS</span>
+                <div className="inline-block px-4 py-2 bg-orange-500/10 border border-orange-500/30 rounded-full mb-6">
+                  <span className="text-orange-400 text-sm font-semibold">WHY THIS MATTERS</span>
                 </div>
                 <h2 className="text-4xl font-bold mb-6">
-                  Find Reliable Carriers, <span className="text-blue-400">Every Time</span>
+                  Level the <span className="text-orange-400">Playing Field</span>
                 </h2>
                 <div className="space-y-6">
                   <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold mb-2">Vet Carriers Instantly</h3>
-                      <p className="text-gray-400">Check carrier ratings and reviews before booking to ensure on-time delivery.</p>
+                      <h3 className="text-xl font-bold mb-2">Brokers Rate You—Now Rate Them</h3>
+                      <p className="text-gray-400">For years, brokers have tracked your performance. Now it's your turn to hold them accountable.</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold mb-2">Reduce No-Shows</h3>
-                      <p className="text-gray-400">Work with carriers who have proven track records of reliability and communication.</p>
+                      <h3 className="text-xl font-bold mb-2">Protect Your Fellow Truckers</h3>
+                      <p className="text-gray-400">When you report a bad broker, you help other truckers avoid the same problems.</p>
                     </div>
                   </div>
                   <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-8 h-8 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold mb-2">Strengthen Your Brand</h3>
-                      <p className="text-gray-400">Build trust with carriers by maintaining high ratings and professional conduct.</p>
+                      <h3 className="text-xl font-bold mb-2">Your Voice, Your Power</h3>
+                      <p className="text-gray-400">This isn't about getting even—it's about fairness. Good brokers have nothing to fear.</p>
                     </div>
                   </div>
                 </div>
@@ -505,10 +505,10 @@ export default function Home() {
           <div className="container mx-auto px-4 lg:px-8 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Ready to Build <span className="text-cyan-400">Trust</span> in Every Load?
+                Ready to <span className="text-cyan-400">Take Control</span> of Your Career?
               </h2>
               <p className="text-xl text-gray-400 mb-8">
-                Join thousands of carriers and brokers who are already transforming the freight industry
+                Join thousands of truckers who are finally holding brokers accountable
               </p>
               
               <form onSubmit={handleWaitlistSubmit} className="max-w-md mx-auto mb-8">

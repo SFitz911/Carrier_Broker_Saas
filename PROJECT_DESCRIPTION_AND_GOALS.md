@@ -8,7 +8,7 @@
 
 > **This is how you use I.T. to change the world.**
 
-Carrier Board is a two-way reporting and rating platform designed to bring **transparency and fairness** to the logistics industry—one load at a time.
+Carrier Board is a **trucker-only** rating platform designed to bring **transparency and fairness** to the logistics industry—one load at a time. Truckers rate brokers and shippers, not the other way around.
 
 ---
 
@@ -33,27 +33,28 @@ I'm addressing the mistrust between two main groups in the logistics industry:
 
 ## 💡 The Solution
 
-**Carrier Board** gives truckers the same ability brokers have: **rate their experiences with shippers and brokers**, creating a **two-way, balanced system** where accountability flows both directions.
+**Carrier Board** gives truckers what they've never had: **the power to rate brokers and shippers**. This is a **trucker-only platform**—brokers and shippers cannot rate truckers here. This levels the playing field and finally gives truckers a voice.
 
 ### Key Features
 
 #### 🤖 AI-Powered Tools
 - **Simplified Data Entry**: Upload a BOL (Bill of Lading) or receipt, AI extracts key details automatically
-- **Credential Verification**: Verify shipper/broker credentials (FMCSA, insurance, etc.)
+- **Credential Verification**: Verify broker/shipper credentials (FMCSA, insurance, etc.)
 - **Submission Validation**: Validate trucker submissions for authenticity
 - **Fair Ratings**: Generate data-driven ratings based on:
-  - Payment history
+  - Payment history and speed
   - Communication quality
-  - Load accuracy
+  - Load accuracy and honesty
   - Professionalism
-  - Timeliness
+  - Reported issues
 
 #### 🎯 Core Benefits
-- ✅ Gives truckers **equal visibility** and **a voice**
+- ✅ Gives truckers **visibility** and **a voice** they've never had
 - ✅ Helps reduce **fraud**, **non-payment**, and **poor practices**
-- ✅ Encourages **accountability on both sides**
+- ✅ Encourages **accountability from brokers and shippers**
 - ✅ Creates a **transparent marketplace** built on trust
-- ✅ Levels the playing field between brokers and carriers
+- ✅ Levels the playing field—truckers can finally rate brokers
+- ✅ Protects fellow truckers from bad actors
 
 ---
 
@@ -96,17 +97,18 @@ I'm addressing the mistrust between two main groups in the logistics industry:
 
 ## 🌟 Why This Matters
 
-The logistics industry moves America. Truckers are the backbone of our economy, yet they often operate without the same protections and transparency that brokers enjoy.
+The logistics industry moves America. Truckers are the backbone of our economy, yet they've been operating without the same transparency and power that brokers have always had.
 
 **Carrier Board changes that.**
 
-By creating a two-way rating system:
+By creating a trucker-only rating platform:
 - Truckers can identify honest brokers who pay on time
-- Brokers can find reliable carriers
-- Bad actors on both sides are held accountable
+- Truckers can warn others about brokers who don't pay or cheat
+- Bad brokers and shippers are finally held accountable
+- Good brokers have nothing to fear—they'll rise to the top
 - The entire industry becomes more efficient and fair
 
-This isn't just a website—**it's a movement toward fairness in freight.**
+This isn't just a website—**it's a movement to give truckers their voice back.**
 
 ---
 
