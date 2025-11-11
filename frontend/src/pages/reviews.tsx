@@ -319,8 +319,7 @@ export default function ReviewsPage() {
                   ) : (
                     <div className="space-y-3">
                       {worstBrokers.map((company, idx) => (
-                        <Link href={`/companies/${company.id}`} key={company.id}>
-                          <div className="bg-white rounded-lg p-4 hover:shadow-md transition cursor-pointer">
+                        <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-lg p-4 hover:shadow-md transition cursor-pointer">
                             <div className="flex items-center justify-between mb-2">
                               <span className="font-bold text-red-700">#{idx + 1}</span>
                               <div className="flex items-center space-x-2">
@@ -335,7 +334,6 @@ export default function ReviewsPage() {
                             {company.mc_number && (
                               <p className="text-xs text-gray-500 mt-1">MC# {company.mc_number}</p>
                             )}
-                          </div>
                         </Link>
                       ))}
                     </div>
@@ -353,8 +351,7 @@ export default function ReviewsPage() {
                   ) : (
                     <div className="space-y-3">
                       {bestBrokers.map((company, idx) => (
-                        <Link href={`/companies/${company.id}`} key={company.id}>
-                          <div className="bg-white rounded-lg p-4 hover:shadow-md transition cursor-pointer">
+                        <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-lg p-4 hover:shadow-md transition cursor-pointer">
                             <div className="flex items-center justify-between mb-2">
                               <span className="font-bold text-green-700">#{idx + 1}</span>
                               <div className="flex items-center space-x-2">
@@ -369,7 +366,6 @@ export default function ReviewsPage() {
                             {company.mc_number && (
                               <p className="text-xs text-gray-500 mt-1">MC# {company.mc_number}</p>
                             )}
-                          </div>
                         </Link>
                       ))}
                     </div>
@@ -452,15 +448,13 @@ export default function ReviewsPage() {
                       </div>
 
                       {/* Company Link */}
-                      <Link href={`/companies/${review.company_id}`}>
-                        <div className="inline-flex items-center space-x-2 mb-3 hover:underline cursor-pointer">
-                          <span className="text-lg font-bold text-gray-900">
-                            {getCompanyName(review.company_id)}
-                          </span>
-                          <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                          </svg>
-                        </div>
+                      <Link href={`/companies/${review.company_id}`} className="inline-flex items-center space-x-2 mb-3 hover:underline cursor-pointer">
+                        <span className="text-lg font-bold text-gray-900">
+                          {getCompanyName(review.company_id)}
+                        </span>
+                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
                       </Link>
 
                       {/* Review Content */}
@@ -563,10 +557,8 @@ export default function ReviewsPage() {
                           <span>Helpful ({review.helpful_count})</span>
                         </button>
                         
-                        <Link href={`/companies/${review.company_id}`}>
-                          <button className="text-cyan-600 hover:text-cyan-700 font-semibold text-sm">
-                            View Full Profile →
-                          </button>
+                        <Link href={`/companies/${review.company_id}`} className="text-cyan-600 hover:text-cyan-700 font-semibold text-sm">
+                          View Full Profile →
                         </Link>
                       </div>
                     </div>

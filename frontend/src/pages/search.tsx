@@ -199,8 +199,7 @@ export default function SearchPage() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredCompanies.map((company) => (
-                <Link href={`/companies/${company.id}`} key={company.id}>
-                  <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105 cursor-pointer h-full">
+                <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105 cursor-pointer h-full">
                     
                     {/* Rating Badge */}
                     <div className="flex items-start justify-between mb-4">
@@ -282,7 +281,6 @@ export default function SearchPage() {
                         </svg>
                       </div>
                     </div>
-                  </div>
                 </Link>
               ))}
             </div>
