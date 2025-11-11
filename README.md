@@ -1,384 +1,201 @@
-# 🚛 Carrier Board
+# 🚛 Carrier Board - Reporting Platform for the Logistics Industry
 
-> **A Nextwork.org Student DevOps Project**  
-> Building transparency and fairness in the freight brokering industry
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+**Built by Sean Fitzgerald** | sfitz911@gmail.com
 
 ---
 
-## 🎯 What is Carrier Board?
+## 🎯 Mission Statement
 
-Carrier Board is a **two-way rating platform** for the freight and trucking industry. Currently, brokers and shippers can rate carriers (truck drivers), but carriers have no way to rate brokers back. This creates an unfair power imbalance.
+> **This is how you use I.T. to change the world.**
 
-**We're changing that.**
-
-Carrier Board allows:
-- ✅ Carriers to rate and review brokers
-- ✅ Brokers to rate and review carriers
-- ✅ Verified company profiles using DOT/MC numbers
-- ✅ Transparent reputation scores for all parties
-- ✅ A fair, accountable freight ecosystem
+Carrier Board is a two-way reporting and rating platform designed to bring **transparency and fairness** to the logistics industry—one load at a time.
 
 ---
 
-## 🎓 About This Project
+## 🔍 The Problem
 
-This is a **student-led, production-grade SaaS project** developed by the Nextwork.org learning community. It serves two purposes:
+I'm addressing the mistrust between two main groups in the logistics industry:
 
-1. **Solve a real problem** in the logistics industry
-2. **Provide hands-on DevOps experience** for students learning modern software development
+### Group 1: Shippers and Freight Brokers
+- Negotiate rates for shippers
+- Maintain one-sided performance boards tracking truckers
+- Control access to performance data (requires brokerage license)
 
-### Built By Students, For Learning
+### Group 2: Truckers and Carriers
+- Often believe they're being shorted on payments
+- Suspect hidden margins and withheld payments
+- Have no way to rate or report their experiences with brokers/shippers
+- Cannot access performance boards without a brokerage license
 
-- 👥 Team Size: 10-30 students
-- ⏱️ Timeline: 8-10 weeks
-- 🛠️ Stack: React, Node.js, PostgreSQL, Docker, GitHub Actions
-- 🚀 Goal: Production-ready SaaS application
-
----
-
-## ✨ Features
-
-### Current (MVP)
-- 🔐 User authentication and authorization
-- ✅ DOT/MC number verification
-- ⭐ Two-way rating and review system
-- 📊 Company reputation dashboards
-- 🔍 Search and filter companies
-- 📱 Responsive design (mobile-friendly)
-
-### Coming Soon
-- 🤖 AI-powered fake review detection
-- 📧 Email notifications
-- 💬 Company response to reviews
-- 🏆 Badges and achievements
-- 📈 Analytics and insights
-- 🔗 FMCSA safety rating integration
+**The current system is one-sided.** Brokers can track and rate truckers, but truckers have no voice.
 
 ---
 
-## 🛠️ Tech Stack
+## 💡 The Solution
+
+**Carrier Board** gives truckers the same ability brokers have: **rate their experiences with shippers and brokers**, creating a **two-way, balanced system** where accountability flows both directions.
+
+### Key Features
+
+#### 🤖 AI-Powered Tools
+- **Simplified Data Entry**: Upload a BOL (Bill of Lading) or receipt, AI extracts key details automatically
+- **Credential Verification**: Verify shipper/broker credentials (FMCSA, insurance, etc.)
+- **Submission Validation**: Validate trucker submissions for authenticity
+- **Fair Ratings**: Generate data-driven ratings based on:
+  - Payment history
+  - Communication quality
+  - Load accuracy
+  - Professionalism
+  - Timeliness
+
+#### 🎯 Core Benefits
+- ✅ Gives truckers **equal visibility** and **a voice**
+- ✅ Helps reduce **fraud**, **non-payment**, and **poor practices**
+- ✅ Encourages **accountability on both sides**
+- ✅ Creates a **transparent marketplace** built on trust
+- ✅ Levels the playing field between brokers and carriers
+
+---
+
+## 💰 Business Model
+
+### Free Tier
+- Submit and view basic ratings
+- Use AI-powered data entry
+- Access to public ratings database
+- Basic profile and verification
+
+### Paid Tier
+- Detailed analytics and reporting
+- Full payment and performance history
+- Advanced dispute resolution tools
+- Verified status badge
+- Priority support
+- Export capabilities
+
+---
+
+## 🚀 Technology Stack
 
 ### Frontend
-- **React** with TypeScript
-- **Next.js** for SSR/SSG
-- **Tailwind CSS** for styling
-- **Zustand** for state management
+- **Next.js** - Modern React framework
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Beautiful, responsive UI
 
 ### Backend
-- **Node.js** with Express
-- **PostgreSQL** database
-- **Prisma** ORM
-- **JWT** authentication
+- **FastAPI** - High-performance Python API
+- **PostgreSQL** - Robust database
+- **JWT Authentication** - Secure user sessions
 
-### DevOps
-- **Docker** & Docker Compose
-- **GitHub Actions** for CI/CD
-- **Vercel** (Frontend hosting)
-- **Railway** (Backend & Database)
+### AI & Verification
+- **FMCSA API Integration** - DOT/MC verification
+- **Document AI** - BOL and receipt parsing
+- **Smart Rating Algorithm** - Fair, data-driven ratings
 
 ---
 
-## 🚀 Getting Started
+## 🌟 Why This Matters
 
-> **🎉 NO API KEYS REQUIRED!** This is a student-friendly project.  
-> Clone and run immediately - no credentials, accounts, or setup needed!  
-> See [NO_API_KEYS_REQUIRED.md](./docs/NO_API_KEYS_REQUIRED.md) for details.
+The logistics industry moves America. Truckers are the backbone of our economy, yet they often operate without the same protections and transparency that brokers enjoy.
+
+**Carrier Board changes that.**
+
+By creating a two-way rating system:
+- Truckers can identify honest brokers who pay on time
+- Brokers can find reliable carriers
+- Bad actors on both sides are held accountable
+- The entire industry becomes more efficient and fair
+
+This isn't just a website—**it's a movement toward fairness in freight.**
+
+---
+
+## 🎬 Getting Started
 
 ### Prerequisites
+- Node.js 18+
+- Python 3.10+
+- PostgreSQL 14+
 
-- Node.js (v18+)
-- Python (v3.10+)
-- Docker & Docker Compose (optional)
-- Git
-
-### Installation
+### Quick Start
 
 1. **Clone the repository**
-   ```bash
-   git clone https://github.com/SFitz911/Carrier_Broker_Saas.git
-   cd Carrier_Broker_Saas
-   ```
-
-2. **Set up credentials** (OPTIONAL - Not needed for development!)
-   ```bash
-   # Optional: Only if you want to use real APIs
-   # The project works WITHOUT this file - uses mock data instead
-   
-   cp credentials.example.json credentials.json
-   # Edit credentials.json only if you have real API keys
-   
-   # Students can skip this entirely! The app works without it.
-   ```
-
-3. **Set up Python virtual environment**
-   ```bash
-   python -m venv .venv
-   
-   # Windows
-   .venv\Scripts\activate
-   
-   # Mac/Linux
-   source .venv/bin/activate
-   ```
-
-4. **Install backend dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-5. **Install frontend dependencies**
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-6. **Run with Docker Compose** (Recommended)
-   ```bash
-   docker-compose up
-   ```
-
-   The app will be available at:
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8000
-   - Database: localhost:5432
-
-### Manual Setup (Without Docker)
-
-**Terminal 1 - Backend:**
 ```bash
-cd backend
-python manage.py migrate
-python manage.py runserver
+git clone https://github.com/SFitz911/Carrier_Broker_Saas.git
+cd Carrier_Broker_Saas
 ```
 
-**Terminal 2 - Frontend:**
+2. **Start the frontend**
 ```bash
 cd frontend
+npm install
 npm run dev
 ```
 
-**Terminal 3 - Database:**
+3. **Start the backend**
 ```bash
-# Make sure PostgreSQL is running
-psql -U postgres
-CREATE DATABASE carrier_board;
+cd backend
+pip install -r requirements.txt
+python main.py
 ```
 
----
-
-## 📁 Project Structure
-
-```
-Carrier_Board/
-├── .github/                      # GitHub Actions workflows (Coming soon)
-│   ├── workflows/
-│   │   ├── ci.yml               # Continuous integration
-│   │   ├── deploy-staging.yml   # Staging deployment
-│   │   └── deploy-prod.yml      # Production deployment
-│   ├── ISSUE_TEMPLATE/          # Issue templates
-│   └── PULL_REQUEST_TEMPLATE.md # PR template
-│
-├── backend/                      # Backend API (To be created)
-│   ├── src/
-│   │   ├── controllers/         # Request handlers
-│   │   ├── models/              # Database models
-│   │   ├── routes/              # API routes
-│   │   ├── middleware/          # Auth, validation, etc.
-│   │   ├── services/            # Business logic
-│   │   └── utils/               # Helper functions
-│   ├── tests/                   # Backend tests
-│   ├── package.json             # Node dependencies
-│   └── .env.example             # Environment template
-│
-├── frontend/                     # Frontend (To be created)
-│   ├── src/
-│   │   ├── components/          # React components
-│   │   ├── pages/               # Next.js pages
-│   │   ├── hooks/               # Custom React hooks
-│   │   ├── styles/              # CSS/Tailwind styles
-│   │   ├── utils/               # Helper functions
-│   │   ├── contexts/            # React contexts
-│   │   └── types/               # TypeScript types
-│   ├── public/                  # Static assets
-│   ├── package.json             # Frontend dependencies
-│   └── .env.local.example       # Frontend env template
-│
-├── database/                     # Database (To be created)
-│   ├── migrations/              # SQL migrations
-│   ├── seeds/                   # Seed data
-│   └── schema.sql               # Database schema
-│
-├── docs/                         # Additional documentation
-│   ├── API.md                   # API endpoints (Coming soon)
-│   ├── ARCHITECTURE.md          # System design (Coming soon)
-│   ├── DATABASE.md              # Database schema (Coming soon)
-│   ├── DEPLOYMENT.md            # Deployment guide (Coming soon)
-│   └── SECURITY.md              # Security guidelines (Coming soon)
-│
-├── docker/                       # Docker configuration (To be created)
-│   ├── Dockerfile.backend       # Backend container
-│   ├── Dockerfile.frontend      # Frontend container
-│   └── docker-compose.yml       # Multi-container setup
-│
-├── .venv/                        # Python virtual environment ✅
-├── .gitignore                    # Git ignore rules ✅
-├── PROJECT_OUTLINE.md            # 8-10 week implementation plan ✅
-├── LOGIC_TREE.md                 # System architecture & logic flows ✅
-├── AUDIT_REPORT.md               # Project audit and assessment ✅
-├── README.md                     # This file ✅
-├── CONTRIBUTING.md               # Contribution guidelines ✅
-├── CODE_OF_CONDUCT.md            # Community standards ✅
-├── LICENSE                       # MIT License ✅
-├── env.example                   # Environment variables template ✅
-├── requirements.txt              # Python dependencies ✅
-└── Carrier_Board_White_Paper.pdf # Original vision document ✅
-```
-
-**Legend:**
-- ✅ = Complete
-- 🚧 = In Progress
-- ⏳ = Planned
-
----
-
-## 🤝 Contributing
-
-We welcome contributions from all Nextwork.org students and the wider community!
-
-### How to Contribute
-
-1. **Fork the repository**
-2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
-3. **Commit your changes** (`git commit -m 'Add some amazing feature'`)
-4. **Push to the branch** (`git push origin feature/amazing-feature`)
-5. **Open a Pull Request**
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for detailed guidelines.
-
-### Good First Issues
-
-Look for issues tagged with `good first issue` or `help wanted` in the Issues tab.
-
----
-
-## 👥 Team
-
-### Project Lead
-- **Student Developer** - Project Founder & Lead
-
-### Core Contributors
-- See [CONTRIBUTORS.md](./CONTRIBUTORS.md) for the full list
-
-### Want to Join?
-Contact us on the Nextwork.org Discord or open an issue expressing interest!
+4. **Visit the app**
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:8000
+- API Docs: http://localhost:8000/api/docs
 
 ---
 
 ## 📚 Documentation
 
-- **[🎉 No API Keys Required!](./docs/NO_API_KEYS_REQUIRED.md)** - Students can start immediately!
-- **[Getting Started](./docs/GETTING_STARTED.md)** - Quick start guide for new developers
-- **[Project Outline](./PROJECT_OUTLINE.md)** - Detailed 8-10 week implementation plan
-- **[Logic Tree](./LOGIC_TREE.md)** - System architecture and decision flows
-- **[Audit Report](./AUDIT_REPORT.md)** - Project assessment and recommendations
-- **[Credentials Setup](./docs/CREDENTIALS_SETUP.md)** - OPTIONAL: For production deployment only
-- **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute to the project
-- **[Code of Conduct](./CODE_OF_CONDUCT.md)** - Community guidelines
+- [Getting Started Guide](docs/GETTING_STARTED.md)
+- [FMCSA API Setup](docs/FMCSA_API_SETUP.md)
+- [New Team Member Guide](docs/NEW_TEAM_MEMBER_GUIDE.md)
+- [No API Keys Required](docs/NO_API_KEYS_REQUIRED.md)
+- [Project White Paper](docs/Carrier_Board_White_Paper.pdf)
 
 ---
 
-## 🧪 Testing
+## 🤝 Contributing
 
-### Run Tests
+This project welcomes contributors who believe in bringing transparency and fairness to the logistics industry.
 
-```bash
-# Backend tests
-cd backend
-npm test
-
-# Frontend tests
-cd frontend
-npm test
-
-# E2E tests
-npm run test:e2e
-
-# Run all tests
-npm run test:all
-```
-
-### Test Coverage
-
-```bash
-npm run test:coverage
-```
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
-## 📝 License
+## 📜 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Nextwork.org** - For providing the learning community and support
-- **All Contributors** - For their time and effort
-- **Freight Industry Advisors** - For domain expertise and feedback
+See [LICENSE](LICENSE) for details.
 
 ---
 
-## 📞 Contact & Support
+## 📧 Contact
 
-- **Discord:** [Nextwork.org Community](https://discord.gg/nextwork)
-- **Email:** carrier-board@nextwork.org
-- **Issues:** [GitHub Issues](https://github.com/Nextwork-org/Carrier_Board/issues)
-
----
-
-## 🗺️ Roadmap
-
-### Phase 1: MVP (Weeks 1-5) ✅
-- [x] Project setup and team organization
-- [x] Basic authentication
-- [x] Company profiles
-- [x] Review system
-- [x] Search functionality
-
-### Phase 2: Production Features (Weeks 6-7) 🚧
-- [ ] Advanced authentication (RBAC, email verification)
-- [ ] FMCSA/DOT API integration
-- [ ] Comment moderation
-- [ ] Company responses to reviews
-- [ ] Security hardening
-
-### Phase 3: Launch (Weeks 8-10) 📅
-- [ ] Beta testing
-- [ ] Performance optimization
-- [ ] Documentation
-- [ ] Public launch
-- [ ] Showcase presentation
-
-### Phase 4: Future Enhancements 🔮
-- [ ] AI-powered review analysis
-- [ ] Mobile app (React Native)
-- [ ] Advanced analytics
-- [ ] Payment integration
-- [ ] API for third-party integrations
+**Sean Fitzgerald**
+- Email: sfitz911@gmail.com
+- GitHub: [@SFitz911](https://github.com/SFitz911)
 
 ---
 
-## ⭐ Star Us!
+## 🌍 Vision
 
-If you find this project helpful or interesting, please give it a star! It helps us reach more students and contributors.
+**This is how you use I.T. to change the world.**
+
+One load. One rating. One fair deal at a time.
+
+Let's build a logistics industry where trust isn't a luxury—it's the standard.
 
 ---
 
-**Built with ❤️ by the Nextwork.org Community**
+## ⭐ Star This Project
 
-*Curiosity • Collaboration • Creation*
+If you believe in transparency and fairness in freight, give this project a star! 
 
+Every star helps spread the word and brings us closer to changing the industry.
+
+---
+
+**Built with purpose. Powered by transparency. Driven by fairness.**
+
+🚛 **Carrier Board** - Where truckers have a voice.
