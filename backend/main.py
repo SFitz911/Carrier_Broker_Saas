@@ -5,7 +5,7 @@ FastAPI Backend Application
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from src.routes import health
+from src.routes import health, reviews
 from src.utils.config import config
 
 # Create FastAPI application
@@ -30,6 +30,7 @@ app.add_middleware(
 
 # Include routers
 app.include_router(health.router, prefix="/api", tags=["health"])
+app.include_router(reviews.router, prefix="/api", tags=["reviews", "companies"])
 
 # Add verification routes
 # NOTE: Using mock mode for now - add FMCSA API key to use real verification

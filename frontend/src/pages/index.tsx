@@ -98,11 +98,11 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <button className="bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:from-cyan-600 hover:to-blue-700 transition transform hover:scale-105 shadow-lg shadow-cyan-500/50">
-                  Start Rating Now
-                </button>
+                <a href="/companies/company-1" className="bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:from-cyan-600 hover:to-blue-700 transition transform hover:scale-105 shadow-lg shadow-cyan-500/50 text-center">
+                  View Demo Company Profile
+                </a>
                 <button className="bg-gray-800 border border-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-700 transition transform hover:scale-105">
-                  Watch Demo
+                  Watch How It Works
                 </button>
               </div>
 
