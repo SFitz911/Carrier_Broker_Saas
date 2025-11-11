@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Navigation from '@/components/Navigation';
 import ReviewForm from '@/components/ReviewForm';
 import CompanyResponseForm from '@/components/CompanyResponseForm';
 
@@ -146,7 +147,9 @@ export default function CompanyProfile() {
         <meta name="description" content={`Reviews and ratings for ${company.legal_name}`} />
       </Head>
 
-      <main className="min-h-screen bg-gray-50 py-8">
+      <Navigation transparent={false} />
+
+      <main className="min-h-screen bg-gray-50 pt-24 pb-8">
         <div className="container mx-auto px-4 max-w-6xl">
           
           {/* Mock User Type Switcher (for testing) */}

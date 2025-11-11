@@ -56,10 +56,10 @@ export default function Home() {
               </span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
+              <a href="/reviews" className="text-gray-300 hover:text-white transition font-semibold">Browse Reviews</a>
               <a href="#features" className="text-gray-300 hover:text-white transition">Features</a>
               <a href="#how-it-works" className="text-gray-300 hover:text-white transition">How It Works</a>
               <a href="#benefits" className="text-gray-300 hover:text-white transition">Benefits</a>
-              <a href="#contact" className="text-gray-300 hover:text-white transition">Contact</a>
             </div>
             <div className="flex items-center space-x-4">
               <button className="text-gray-300 hover:text-white transition">
@@ -98,12 +98,15 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <a href="/companies/company-1" className="bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:from-cyan-600 hover:to-blue-700 transition transform hover:scale-105 shadow-lg shadow-cyan-500/50 text-center">
-                  View Demo Company Profile
+                <a href="/search" className="bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:from-cyan-600 hover:to-blue-700 transition transform hover:scale-105 shadow-lg shadow-cyan-500/50 text-center">
+                  🔍 Search Brokers
                 </a>
-                <button className="bg-gray-800 border border-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-700 transition transform hover:scale-105">
-                  Watch How It Works
-                </button>
+                <a href="/reviews" className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition transform hover:scale-105 shadow-lg shadow-blue-500/50 text-center">
+                  Browse Reviews
+                </a>
+                <a href="/companies/company-1" className="bg-gray-800 border border-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-700 transition transform hover:scale-105 text-center">
+                  Demo Profile
+                </a>
               </div>
 
               {/* Stats */}
