@@ -99,10 +99,10 @@ export default function CompanyProfile() {
   
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-400 mx-auto mb-4"></div>
+          <p className="text-gray-300">Loading...</p>
         </div>
       </div>
     );
@@ -110,7 +110,7 @@ export default function CompanyProfile() {
   
   if (error || !company) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 text-xl mb-4">{error || 'Company not found'}</p>
           <button
@@ -149,7 +149,7 @@ export default function CompanyProfile() {
 
       <Navigation transparent={false} />
 
-      <main className="min-h-screen bg-gray-50 pt-24 pb-8">
+      <main className="min-h-screen bg-gray-900 pt-24 pb-8">
         <div className="container mx-auto px-4 max-w-6xl">
           
           {/* Mock User Type Switcher (for testing) */}
@@ -178,15 +178,15 @@ export default function CompanyProfile() {
           </div>
 
           {/* Company Header */}
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <div className="bg-gray-800 border border-gray-700 rounded-2xl shadow-lg p-8 mb-8">
             <div className="flex items-start justify-between mb-6">
               <div className="flex-1">
-                <h1 className="text-4xl font-bold mb-2">{company.legal_name}</h1>
+                <h1 className="text-4xl font-bold mb-2 text-white">{company.legal_name}</h1>
                 {company.dba_name && (
-                  <p className="text-xl text-gray-600 mb-4">DBA: {company.dba_name}</p>
+                  <p className="text-xl text-gray-400 mb-4">DBA: {company.dba_name}</p>
                 )}
                 
-                <div className="flex items-center space-x-4 text-gray-600 mb-4">
+                <div className="flex items-center space-x-4 text-gray-400 mb-4">
                   <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">
                     {company.entity_type}
                   </span>
@@ -199,64 +199,64 @@ export default function CompanyProfile() {
                 </div>
                 
                 {(company.physical_city || company.physical_state) && (
-                  <p className="text-gray-600">
+                  <p className="text-gray-400">
                     📍 {company.physical_city}, {company.physical_state}
                   </p>
                 )}
                 
                 {company.phone && (
-                  <p className="text-gray-600">
+                  <p className="text-gray-400">
                     📞 {company.phone}
                   </p>
                 )}
               </div>
               
               {/* Rating Summary */}
-              <div className="text-center bg-gray-50 rounded-xl p-6 ml-6">
-                <div className="text-5xl font-bold text-cyan-600 mb-2">
+              <div className="text-center bg-gray-900 border border-gray-700 rounded-xl p-6 ml-6">
+                <div className="text-5xl font-bold text-cyan-400 mb-2">
                   {company.overall_rating.toFixed(1)}
                 </div>
                 <StarDisplay rating={company.overall_rating} />
-                <p className="text-gray-600 mt-2">{company.review_count} reviews</p>
+                <p className="text-gray-400 mt-2">{company.review_count} reviews</p>
               </div>
             </div>
             
             {/* Detailed Ratings */}
             {(company.payment_rating || company.communication_rating || company.professionalism_rating || company.honesty_rating) && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 border-t border-gray-700">
                 {company.payment_rating && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Payment</p>
+                    <p className="text-sm text-gray-400 mb-1">Payment</p>
                     <div className="flex items-center">
-                      <span className="text-2xl font-bold text-cyan-600 mr-2">{company.payment_rating.toFixed(1)}</span>
-                      <span className="text-gray-400">/5</span>
+                      <span className="text-2xl font-bold text-cyan-400 mr-2">{company.payment_rating.toFixed(1)}</span>
+                      <span className="text-gray-500">/5</span>
                     </div>
                   </div>
                 )}
                 {company.communication_rating && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Communication</p>
+                    <p className="text-sm text-gray-400 mb-1">Communication</p>
                     <div className="flex items-center">
-                      <span className="text-2xl font-bold text-cyan-600 mr-2">{company.communication_rating.toFixed(1)}</span>
-                      <span className="text-gray-400">/5</span>
+                      <span className="text-2xl font-bold text-cyan-400 mr-2">{company.communication_rating.toFixed(1)}</span>
+                      <span className="text-gray-500">/5</span>
                     </div>
                   </div>
                 )}
                 {company.professionalism_rating && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Professionalism</p>
+                    <p className="text-sm text-gray-400 mb-1">Professionalism</p>
                     <div className="flex items-center">
-                      <span className="text-2xl font-bold text-cyan-600 mr-2">{company.professionalism_rating.toFixed(1)}</span>
-                      <span className="text-gray-400">/5</span>
+                      <span className="text-2xl font-bold text-cyan-400 mr-2">{company.professionalism_rating.toFixed(1)}</span>
+                      <span className="text-gray-500">/5</span>
                     </div>
                   </div>
                 )}
                 {company.honesty_rating && (
                   <div>
-                    <p className="text-sm text-gray-600 mb-1">Honesty</p>
+                    <p className="text-sm text-gray-400 mb-1">Honesty</p>
                     <div className="flex items-center">
-                      <span className="text-2xl font-bold text-cyan-600 mr-2">{company.honesty_rating.toFixed(1)}</span>
-                      <span className="text-gray-400">/5</span>
+                      <span className="text-2xl font-bold text-cyan-400 mr-2">{company.honesty_rating.toFixed(1)}</span>
+                      <span className="text-gray-500">/5</span>
                     </div>
                   </div>
                 )}
@@ -276,18 +276,18 @@ export default function CompanyProfile() {
 
           {/* Reviews List */}
           <div>
-            <h2 className="text-3xl font-bold mb-6">
+            <h2 className="text-3xl font-bold mb-6 text-white">
               Reviews ({reviews.length})
             </h2>
             
             {reviews.length === 0 ? (
-              <div className="bg-white rounded-xl p-12 text-center">
-                <p className="text-gray-500 text-lg">No reviews yet. Be the first to review!</p>
+              <div className="bg-gray-800 border border-gray-700 rounded-xl p-12 text-center">
+                <p className="text-gray-400 text-lg">No reviews yet. Be the first to review!</p>
               </div>
             ) : (
               <div className="space-y-6">
                 {reviews.map((review) => (
-                  <div key={review.id} className="bg-white rounded-xl shadow-lg p-6">
+                  <div key={review.id} className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 hover:border-cyan-500 transition">
                     {/* Review Header */}
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex-1">
@@ -296,8 +296,8 @@ export default function CompanyProfile() {
                             {review.trucker_name[0]}
                           </div>
                           <div>
-                            <p className="font-bold">{review.trucker_name}</p>
-                            <p className="text-sm text-gray-500">
+                            <p className="font-bold text-white">{review.trucker_name}</p>
+                            <p className="text-sm text-gray-400">
                               {new Date(review.created_at).toLocaleDateString()}
                             </p>
                           </div>
@@ -317,34 +317,34 @@ export default function CompanyProfile() {
                     </div>
 
                     {/* Review Content */}
-                    <h3 className="text-xl font-bold mb-2">{review.title}</h3>
-                    <p className="text-gray-700 mb-4">{review.content}</p>
+                    <h3 className="text-xl font-bold mb-2 text-white">{review.title}</h3>
+                    <p className="text-gray-300 mb-4">{review.content}</p>
 
                     {/* Detailed Ratings */}
                     {(review.payment_rating || review.communication_rating || review.professionalism_rating || review.honesty_rating) && (
                       <div className="flex flex-wrap gap-4 mb-4">
                         {review.payment_rating && (
-                          <div className="bg-gray-50 px-4 py-2 rounded-lg">
-                            <span className="text-sm text-gray-600">Payment: </span>
-                            <span className="font-bold text-cyan-600">{review.payment_rating}/5</span>
+                          <div className="bg-gray-700 px-4 py-2 rounded-lg">
+                            <span className="text-sm text-gray-300">Payment: </span>
+                            <span className="font-bold text-cyan-400">{review.payment_rating}/5</span>
                           </div>
                         )}
                         {review.communication_rating && (
-                          <div className="bg-gray-50 px-4 py-2 rounded-lg">
-                            <span className="text-sm text-gray-600">Communication: </span>
-                            <span className="font-bold text-cyan-600">{review.communication_rating}/5</span>
+                          <div className="bg-gray-700 px-4 py-2 rounded-lg">
+                            <span className="text-sm text-gray-300">Communication: </span>
+                            <span className="font-bold text-cyan-400">{review.communication_rating}/5</span>
                           </div>
                         )}
                         {review.professionalism_rating && (
-                          <div className="bg-gray-50 px-4 py-2 rounded-lg">
-                            <span className="text-sm text-gray-600">Professionalism: </span>
-                            <span className="font-bold text-cyan-600">{review.professionalism_rating}/5</span>
+                          <div className="bg-gray-700 px-4 py-2 rounded-lg">
+                            <span className="text-sm text-gray-300">Professionalism: </span>
+                            <span className="font-bold text-cyan-400">{review.professionalism_rating}/5</span>
                           </div>
                         )}
                         {review.honesty_rating && (
-                          <div className="bg-gray-50 px-4 py-2 rounded-lg">
-                            <span className="text-sm text-gray-600">Honesty: </span>
-                            <span className="font-bold text-cyan-600">{review.honesty_rating}/5</span>
+                          <div className="bg-gray-700 px-4 py-2 rounded-lg">
+                            <span className="text-sm text-gray-300">Honesty: </span>
+                            <span className="font-bold text-cyan-400">{review.honesty_rating}/5</span>
                           </div>
                         )}
                       </div>
@@ -382,8 +382,8 @@ export default function CompanyProfile() {
                     )}
 
                     {/* Helpful Button */}
-                    <div className="flex items-center space-x-4 pt-4 border-t">
-                      <button className="text-gray-600 hover:text-cyan-600 flex items-center space-x-2">
+                    <div className="flex items-center space-x-4 pt-4 border-t border-gray-700">
+                      <button className="text-gray-400 hover:text-cyan-400 flex items-center space-x-2">
                         <span>👍</span>
                         <span>Helpful ({review.helpful_count})</span>
                       </button>

@@ -135,8 +135,11 @@ export default function ReviewsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-600"></div>
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-400 mx-auto mb-4"></div>
+          <p className="text-gray-300">Loading reviews...</p>
+        </div>
       </div>
     );
   }
@@ -150,61 +153,68 @@ export default function ReviewsPage() {
 
       <Navigation transparent={false} />
 
-      <main className="min-h-screen bg-gray-50 pt-16">
+      <main className="min-h-screen bg-gray-900 pt-16">
         {/* Header */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-12">
-          <div className="container mx-auto px-4 max-w-7xl">
-            <div className="mb-6">
-              <h1 className="text-4xl md:text-5xl font-bold mb-2">
+        <section className="relative min-h-[400px] flex items-center justify-center overflow-hidden">
+          {/* Animated Background */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="container mx-auto px-4 max-w-7xl relative z-10">
+            <div className="text-center mb-8">
+              <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white">
                 Browse Reviews
               </h1>
-              <p className="text-xl text-gray-300">
+              <p className="text-xl text-gray-300 mb-8">
                 See what truckers are saying about brokers and shippers
               </p>
             </div>
             
             {/* Quick Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-              <div className="bg-gray-800/50 rounded-lg p-4">
-                <div className="text-2xl font-bold text-cyan-400">{reviews.length}</div>
-                <div className="text-gray-400 text-sm">Total Reviews</div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+                <div className="text-3xl font-bold text-cyan-400">{reviews.length}</div>
+                <div className="text-gray-400 mt-2">Total Reviews</div>
               </div>
-              <div className="bg-gray-800/50 rounded-lg p-4">
-                <div className="text-2xl font-bold text-blue-400">{companies.length}</div>
-                <div className="text-gray-400 text-sm">Companies Rated</div>
+              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+                <div className="text-3xl font-bold text-blue-400">{companies.length}</div>
+                <div className="text-gray-400 mt-2">Companies Rated</div>
               </div>
-              <div className="bg-gray-800/50 rounded-lg p-4">
-                <div className="text-2xl font-bold text-green-400">
+              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+                <div className="text-3xl font-bold text-green-400">
                   {reviews.filter(r => r.would_work_again).length}
                 </div>
-                <div className="text-gray-400 text-sm">Recommended</div>
+                <div className="text-gray-400 mt-2">Recommended</div>
               </div>
-              <div className="bg-gray-800/50 rounded-lg p-4">
-                <div className="text-2xl font-bold text-red-400">
+              <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+                <div className="text-3xl font-bold text-red-400">
                   {reviews.filter(r => r.payment_speed === 'never_paid' || r.payment_speed === 'late').length}
                 </div>
-                <div className="text-gray-400 text-sm">Payment Issues</div>
+                <div className="text-gray-400 mt-2">Payment Issues</div>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         <div className="container mx-auto px-4 max-w-7xl py-8">
           <div className="grid lg:grid-cols-4 gap-8">
             
             {/* Sidebar - Filters */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl shadow-lg p-6 sticky top-4">
-                <h3 className="text-xl font-bold mb-4">Filters</h3>
+              <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 sticky top-4">
+                <h3 className="text-xl font-bold mb-4 text-white">Filters</h3>
                 
                 {/* View Mode */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold mb-2">View</label>
+                  <label className="block text-sm font-semibold mb-2 text-gray-300">View</label>
                   <div className="space-y-2">
                     <button
                       onClick={() => setViewMode('all')}
                       className={`w-full text-left px-4 py-2 rounded-lg transition ${
-                        viewMode === 'all' ? 'bg-cyan-500 text-white' : 'bg-gray-100 hover:bg-gray-200'
+                        viewMode === 'all' ? 'bg-cyan-500 text-white' : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
                       }`}
                     >
                       All Reviews
@@ -212,7 +222,7 @@ export default function ReviewsPage() {
                     <button
                       onClick={() => setViewMode('positive')}
                       className={`w-full text-left px-4 py-2 rounded-lg transition ${
-                        viewMode === 'positive' ? 'bg-green-500 text-white' : 'bg-gray-100 hover:bg-gray-200'
+                        viewMode === 'positive' ? 'bg-green-500 text-white' : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
                       }`}
                     >
                       ⭐ Positive (4-5 stars)
@@ -220,7 +230,7 @@ export default function ReviewsPage() {
                     <button
                       onClick={() => setViewMode('negative')}
                       className={`w-full text-left px-4 py-2 rounded-lg transition ${
-                        viewMode === 'negative' ? 'bg-red-500 text-white' : 'bg-gray-100 hover:bg-gray-200'
+                        viewMode === 'negative' ? 'bg-red-500 text-white' : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
                       }`}
                     >
                       ⚠️ Negative (1-2 stars)
@@ -228,7 +238,7 @@ export default function ReviewsPage() {
                     <button
                       onClick={() => setViewMode('warning')}
                       className={`w-full text-left px-4 py-2 rounded-lg transition ${
-                        viewMode === 'warning' ? 'bg-orange-500 text-white' : 'bg-gray-100 hover:bg-gray-200'
+                        viewMode === 'warning' ? 'bg-orange-500 text-white' : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
                       }`}
                     >
                       💰 Payment Issues
@@ -238,11 +248,11 @@ export default function ReviewsPage() {
 
                 {/* Company Filter */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold mb-2">Company</label>
+                  <label className="block text-sm font-semibold mb-2 text-gray-300">Company</label>
                   <select
                     value={selectedCompany}
                     onChange={(e) => setSelectedCompany(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2 border border-gray-600 rounded-lg text-white bg-gray-700 focus:outline-none focus:border-cyan-500"
                   >
                     <option value="">All Companies</option>
                     {companies.map(company => (
@@ -255,11 +265,11 @@ export default function ReviewsPage() {
 
                 {/* Minimum Rating */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold mb-2">Minimum Rating</label>
+                  <label className="block text-sm font-semibold mb-2 text-gray-300">Minimum Rating</label>
                   <select
                     value={minRating}
                     onChange={(e) => setMinRating(Number(e.target.value))}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2 border border-gray-600 rounded-lg text-white bg-gray-700 focus:outline-none focus:border-cyan-500"
                   >
                     <option value="0">Any Rating</option>
                     <option value="1">1+ Stars</option>
@@ -272,11 +282,11 @@ export default function ReviewsPage() {
 
                 {/* Sort By */}
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold mb-2">Sort By</label>
+                  <label className="block text-sm font-semibold mb-2 text-gray-300">Sort By</label>
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2 border border-gray-600 rounded-lg text-white bg-gray-700 focus:outline-none focus:border-cyan-500"
                   >
                     <option value="recent">Most Recent</option>
                     <option value="helpful">Most Helpful</option>
@@ -286,8 +296,8 @@ export default function ReviewsPage() {
                 </div>
 
                 {/* Quick Links */}
-                <div className="pt-6 border-t">
-                  <h4 className="text-sm font-semibold mb-3 text-gray-600">Quick Links</h4>
+                <div className="pt-6 border-t border-gray-700">
+                  <h4 className="text-sm font-semibold mb-3 text-gray-400">Quick Links</h4>
                   <div className="space-y-2 text-sm">
                     <a href="#worst-brokers" className="block text-red-600 hover:underline">
                       🚫 Worst Brokers
@@ -309,7 +319,7 @@ export default function ReviewsPage() {
               {/* Top Brokers - Best and Worst */}
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 {/* Worst Brokers */}
-                <div id="worst-brokers" className="bg-red-50 border-2 border-red-300 rounded-xl p-6">
+                <div id="worst-brokers" className="bg-red-50 border-2 border-red-300 rounded-xl p-6 shadow-md">
                   <h3 className="text-2xl font-bold text-red-800 mb-4 flex items-center">
                     <span className="text-3xl mr-2">🚫</span>
                     Brokers to Avoid
@@ -341,7 +351,7 @@ export default function ReviewsPage() {
                 </div>
 
                 {/* Best Brokers */}
-                <div id="best-brokers" className="bg-green-50 border-2 border-green-300 rounded-xl p-6">
+                <div id="best-brokers" className="bg-green-50 border-2 border-green-300 rounded-xl p-6 shadow-md">
                   <h3 className="text-2xl font-bold text-green-800 mb-4 flex items-center">
                     <span className="text-3xl mr-2">⭐</span>
                     Top Rated Brokers
@@ -374,12 +384,12 @@ export default function ReviewsPage() {
               </div>
 
               {/* Results Header */}
-              <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+              <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 mb-6">
                 <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">
+                  <h2 className="text-2xl font-bold text-white">
                     {filteredReviews.length} Review{filteredReviews.length !== 1 ? 's' : ''}
                   </h2>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-gray-400">
                     {viewMode === 'all' && 'Showing all reviews'}
                     {viewMode === 'positive' && 'Showing positive reviews'}
                     {viewMode === 'negative' && 'Showing negative reviews'}
@@ -390,8 +400,8 @@ export default function ReviewsPage() {
 
               {/* Reviews List */}
               {filteredReviews.length === 0 ? (
-                <div className="bg-white rounded-xl p-12 text-center">
-                  <p className="text-gray-500 text-lg">No reviews match your filters</p>
+                <div className="bg-gray-800 border border-gray-700 rounded-xl p-12 text-center">
+                  <p className="text-gray-400 text-lg">No reviews match your filters</p>
                   <button
                     onClick={() => {
                       setSelectedCompany('');
@@ -406,7 +416,7 @@ export default function ReviewsPage() {
               ) : (
                 <div className="space-y-6">
                   {filteredReviews.map((review) => (
-                    <div key={review.id} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition">
+                    <div key={review.id} className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 hover:shadow-xl hover:border-cyan-500 transition">
                       
                       {/* Review Header */}
                       <div className="flex items-start justify-between mb-4">
@@ -416,8 +426,8 @@ export default function ReviewsPage() {
                               {review.trucker_name[0]}
                             </div>
                             <div>
-                              <p className="font-bold">{review.trucker_name}</p>
-                              <p className="text-sm text-gray-500">
+                              <p className="font-bold text-white">{review.trucker_name}</p>
+                              <p className="text-sm text-gray-400">
                                 {new Date(review.created_at).toLocaleDateString('en-US', {
                                   year: 'numeric',
                                   month: 'long',
@@ -449,17 +459,17 @@ export default function ReviewsPage() {
 
                       {/* Company Link */}
                       <Link href={`/companies/${review.company_id}`} className="inline-flex items-center space-x-2 mb-3 hover:underline cursor-pointer">
-                        <span className="text-lg font-bold text-gray-900">
+                        <span className="text-lg font-bold text-cyan-400 hover:text-cyan-300">
                           {getCompanyName(review.company_id)}
                         </span>
-                        <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                       </Link>
 
                       {/* Review Content */}
-                      <h3 className="text-xl font-bold mb-2">{review.title}</h3>
-                      <p className="text-gray-700 mb-4 leading-relaxed">{review.content}</p>
+                      <h3 className="text-xl font-bold mb-2 text-white">{review.title}</h3>
+                      <p className="text-gray-300 mb-4 leading-relaxed">{review.content}</p>
 
                       {/* Detailed Ratings Grid */}
                       {(review.payment_rating || review.communication_rating || review.professionalism_rating || review.honesty_rating) && (
@@ -549,8 +559,8 @@ export default function ReviewsPage() {
                       )}
 
                       {/* Footer - Actions */}
-                      <div className="flex items-center justify-between pt-4 border-t">
-                        <button className="text-gray-600 hover:text-cyan-600 flex items-center space-x-2 transition">
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-700">
+                        <button className="text-gray-400 hover:text-cyan-400 flex items-center space-x-2 transition">
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                           </svg>
@@ -569,7 +579,7 @@ export default function ReviewsPage() {
               {/* Load More Button */}
               {filteredReviews.length >= 10 && (
                 <div className="text-center mt-8">
-                  <button className="bg-gray-200 hover:bg-gray-300 px-8 py-3 rounded-lg font-semibold transition">
+                  <button className="bg-gray-700 hover:bg-gray-600 text-white px-8 py-3 rounded-lg font-semibold transition">
                     Load More Reviews
                   </button>
                 </div>

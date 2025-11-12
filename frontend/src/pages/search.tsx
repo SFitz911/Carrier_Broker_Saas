@@ -84,6 +84,18 @@ export default function SearchPage() {
     setFilteredCompanies(results);
   };
 
+  // Get worst brokers (lowest ratings with most reviews)
+  const worstBrokers = companies
+    .filter(c => c.review_count >= 2)
+    .sort((a, b) => a.overall_rating - b.overall_rating)
+    .slice(0, 5);
+  
+  // Get best brokers
+  const bestBrokers = companies
+    .filter(c => c.review_count >= 2)
+    .sort((a, b) => b.overall_rating - a.overall_rating)
+    .slice(0, 5);
+
   const StarDisplay = ({ rating }: { rating: number }) => (
     <div className="flex items-center">
       {[1, 2, 3, 4, 5].map((star) => (
@@ -101,8 +113,11 @@ export default function SearchPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-600"></div>
+      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-cyan-400 mx-auto mb-4"></div>
+          <p className="text-gray-300">Loading...</p>
+        </div>
       </div>
     );
   }
@@ -116,7 +131,7 @@ export default function SearchPage() {
 
       <Navigation transparent={false} />
 
-      <main className="min-h-screen bg-gray-50 pt-24 pb-8">
+      <main className="min-h-screen bg-gray-900 pt-24 pb-8">
         <div className="container mx-auto px-4 max-w-7xl">
           
           {/* Hero Search */}
@@ -128,29 +143,47 @@ export default function SearchPage() {
               Search by company name, MC number, or DOT number
             </p>
             
-            <div className="flex gap-4">
+            <div className="relative">
+              <div className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search brokers... (e.g., Swift, MC# 12345, DOT# 123456)"
-                className="flex-1 px-6 py-4 rounded-xl text-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-cyan-300"
+                placeholder="Type to search... (company name, MC#, DOT#)"
+                className="w-full pl-16 pr-32 py-5 rounded-xl text-lg text-white bg-white/10 backdrop-blur-md border-2 border-white/20 placeholder-white/60 focus:outline-none focus:ring-4 focus:ring-white/40 focus:border-white/40 transition"
               />
-              <button className="bg-white text-cyan-600 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition">
-                Search
-              </button>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/80 hover:text-white px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 transition flex items-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  Clear
+                </button>
+              )}
             </div>
+            {searchQuery && (
+              <p className="text-white/80 text-sm mt-3">
+                <span className="font-semibold">{filteredCompanies.length}</span> result{filteredCompanies.length !== 1 ? 's' : ''} found for "{searchQuery}"
+              </p>
+            )}
           </div>
 
           {/* Filters */}
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+          <div className="bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 mb-8">
             <div className="flex flex-wrap gap-4 items-center">
               <div>
-                <label className="text-sm font-semibold text-gray-700 mr-2">Entity Type:</label>
+                <label className="text-sm font-semibold text-gray-300 mr-2">Entity Type:</label>
                 <select
                   value={entityFilter}
                   onChange={(e) => setEntityFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
+                  className="px-4 py-2 border border-gray-600 rounded-lg text-white bg-gray-700 focus:outline-none focus:border-cyan-500"
                 >
                   <option value="">All Types</option>
                   <option value="BROKER">Brokers</option>
@@ -160,11 +193,11 @@ export default function SearchPage() {
               </div>
 
               <div>
-                <label className="text-sm font-semibold text-gray-700 mr-2">Rating:</label>
+                <label className="text-sm font-semibold text-gray-300 mr-2">Rating:</label>
                 <select
                   value={ratingFilter}
                   onChange={(e) => setRatingFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-300 rounded-lg text-gray-900 bg-white focus:outline-none focus:border-cyan-500"
+                  className="px-4 py-2 border border-gray-600 rounded-lg text-white bg-gray-700 focus:outline-none focus:border-cyan-500"
                 >
                   <option value="all">All Ratings</option>
                   <option value="high">High (4+ stars)</option>
@@ -174,7 +207,7 @@ export default function SearchPage() {
               </div>
 
               <div className="ml-auto">
-                <span className="text-gray-600">
+                <span className="text-gray-300">
                   {filteredCompanies.length} result{filteredCompanies.length !== 1 ? 's' : ''}
                 </span>
               </div>
@@ -183,8 +216,8 @@ export default function SearchPage() {
 
           {/* Results */}
           {filteredCompanies.length === 0 ? (
-            <div className="bg-white rounded-xl p-12 text-center">
-              <p className="text-gray-500 text-lg mb-4">No companies found</p>
+            <div className="bg-gray-800 border border-gray-700 rounded-xl p-12 text-center">
+              <p className="text-gray-400 text-lg mb-4">No companies found</p>
               <button
                 onClick={() => {
                   setSearchQuery('');
@@ -199,7 +232,7 @@ export default function SearchPage() {
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredCompanies.map((company) => (
-                <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-xl shadow-lg p-6 hover:shadow-2xl transition transform hover:scale-105 cursor-pointer h-full">
+                <Link href={`/companies/${company.id}`} key={company.id} className="block bg-gray-800 border border-gray-700 rounded-xl shadow-lg p-6 hover:shadow-2xl hover:border-cyan-500 transition transform hover:scale-105 cursor-pointer h-full">
                   {/* Rating Badge */}
                   <div className="flex items-start justify-between mb-4">
                     <div className={`px-3 py-1 rounded-full text-xs font-bold ${
@@ -223,14 +256,14 @@ export default function SearchPage() {
                   </div>
 
                   {/* Company Info */}
-                  <h3 className="text-xl font-bold mb-2 text-gray-900">
+                  <h3 className="text-xl font-bold mb-2 text-white">
                     {company.legal_name}
                   </h3>
                   {company.dba_name && (
-                    <p className="text-sm text-gray-600 mb-2">DBA: {company.dba_name}</p>
+                    <p className="text-sm text-gray-400 mb-2">DBA: {company.dba_name}</p>
                   )}
 
-                  <div className="text-sm text-gray-600 space-y-1 mb-4">
+                  <div className="text-sm text-gray-400 space-y-1 mb-4">
                     {company.mc_number && (
                       <p>MC# {company.mc_number}</p>
                     )}
@@ -247,8 +280,8 @@ export default function SearchPage() {
 
                   {/* Rating Breakdown */}
                   {company.review_count > 0 && (
-                    <div className="border-t pt-4">
-                      <p className="text-sm text-gray-600 mb-3">
+                    <div className="border-t border-gray-700 pt-4">
+                      <p className="text-sm text-gray-400 mb-3">
                         {company.review_count} review{company.review_count !== 1 ? 's' : ''}
                       </p>
                       
@@ -272,8 +305,8 @@ export default function SearchPage() {
                   )}
 
                   {/* View Button */}
-                  <div className="mt-4 pt-4 border-t">
-                    <div className="text-cyan-600 hover:text-cyan-700 font-semibold text-sm flex items-center justify-between">
+                  <div className="mt-4 pt-4 border-t border-gray-700">
+                    <div className="text-cyan-400 hover:text-cyan-300 font-semibold text-sm flex items-center justify-between">
                       <span>View Full Profile</span>
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -284,6 +317,73 @@ export default function SearchPage() {
               ))}
             </div>
           )}
+
+          {/* Good & Bad Brokers Section */}
+          <div className="grid md:grid-cols-2 gap-6 mt-12">
+            {/* Bad Brokers */}
+            <div className="bg-red-50 border-2 border-red-300 rounded-xl p-6 shadow-md">
+              <h3 className="text-2xl font-bold text-red-800 mb-4 flex items-center">
+                <span className="text-3xl mr-2">🚫</span>
+                Brokers to Avoid
+              </h3>
+              {worstBrokers.length === 0 ? (
+                <p className="text-red-700">Not enough data yet</p>
+              ) : (
+                <div className="space-y-3">
+                  {worstBrokers.map((company, idx) => (
+                    <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-lg p-4 hover:shadow-md transition cursor-pointer">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-bold text-red-700">#{idx + 1}</span>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-2xl font-bold text-red-600">
+                            {company.overall_rating.toFixed(1)}
+                          </span>
+                          <StarDisplay rating={company.overall_rating} />
+                        </div>
+                      </div>
+                      <p className="font-semibold mb-1 text-gray-900">{company.legal_name}</p>
+                      <p className="text-sm text-gray-600">{company.review_count} reviews</p>
+                      {company.mc_number && (
+                        <p className="text-xs text-gray-500 mt-1">MC# {company.mc_number}</p>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Good Brokers */}
+            <div className="bg-green-50 border-2 border-green-300 rounded-xl p-6 shadow-md">
+              <h3 className="text-2xl font-bold text-green-800 mb-4 flex items-center">
+                <span className="text-3xl mr-2">⭐</span>
+                Top Rated Brokers
+              </h3>
+              {bestBrokers.length === 0 ? (
+                <p className="text-green-700">Not enough data yet</p>
+              ) : (
+                <div className="space-y-3">
+                  {bestBrokers.map((company, idx) => (
+                    <Link href={`/companies/${company.id}`} key={company.id} className="block bg-white rounded-lg p-4 hover:shadow-md transition cursor-pointer">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-bold text-green-700">#{idx + 1}</span>
+                        <div className="flex items-center space-x-2">
+                          <span className="text-2xl font-bold text-green-600">
+                            {company.overall_rating.toFixed(1)}
+                          </span>
+                          <StarDisplay rating={company.overall_rating} />
+                        </div>
+                      </div>
+                      <p className="font-semibold mb-1 text-gray-900">{company.legal_name}</p>
+                      <p className="text-sm text-gray-600">{company.review_count} reviews</p>
+                      {company.mc_number && (
+                        <p className="text-xs text-gray-500 mt-1">MC# {company.mc_number}</p>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </main>
     </>
