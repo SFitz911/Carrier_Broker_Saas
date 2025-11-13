@@ -101,11 +101,11 @@ export default function Home() {
                 <a href="/search" className="bg-gradient-to-r from-cyan-500 to-blue-600 px-8 py-4 rounded-xl font-bold text-lg hover:from-cyan-600 hover:to-blue-700 transition transform hover:scale-105 shadow-lg shadow-cyan-500/50 text-center">
                   🔍 Search Brokers
                 </a>
+                <a href="/rankings" className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition transform hover:scale-105 shadow-lg shadow-purple-500/50 text-center">
+                  🏆 Top 25 Rankings
+                </a>
                 <a href="/reviews" className="bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 rounded-xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition transform hover:scale-105 shadow-lg shadow-blue-500/50 text-center">
                   Browse Reviews
-                </a>
-                <a href="/companies/company-1" className="bg-gray-800 border border-gray-700 px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-700 transition transform hover:scale-105 text-center">
-                  Demo Profile
                 </a>
               </div>
 

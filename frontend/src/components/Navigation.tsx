@@ -37,6 +37,11 @@ export default function Navigation({ transparent = false }: NavigationProps) {
             }`}>
               Browse Reviews
             </Link>
+            <Link href="/rankings" className={`hover:text-cyan-600 transition font-semibold ${
+              transparent ? 'text-gray-300' : 'text-gray-700'
+            }`}>
+              🏆 Rankings
+            </Link>
             <Link href="/#features" className={`transition ${
               transparent ? 'text-gray-300 hover:text-white' : 'text-gray-700 hover:text-cyan-600'
             }`}>
